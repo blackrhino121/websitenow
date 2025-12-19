@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Launch MOP - Rivix Servers</title>
+    <meta name="description" content="Method of Procedure - Final launch checklist for Rivix Servers business launch.">
+    <link rel="icon" type="image/x-icon" href="<%= images.logo %>">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        .bg-dark-bg { background-color: #0F172A; }
+        .bg-dark-card { background-color: #1E293B; }
+        .text-rivix-orange { color: #FF6B00; }
+        .text-rivix-green { color: #22C55E; }
+        .text-rivix-blue { color: #2563EB; }
+        
+        body { padding-top: 72px; background-color: #0F172A; color: #E2E8F0; font-family: 'Inter', sans-serif; }
+        section { padding-top: 100px; padding-bottom: 100px; }
+        h1, h2, h3 { font-weight: 900; letter-spacing: -0.04em; color: #F8FAFC; }
+        
+        .checklist-item {
+            transition: all 0.3s ease;
+        }
+        .checklist-item:hover {
+            transform: translateX(8px);
+        }
+        .section-card {
+            border-left: 4px solid;
+        }
+        .section-legal { border-left-color: #2563EB; }
+        .section-infrastructure { border-left-color: #22C55E; }
+        .section-marketing { border-left-color: #FF6B00; }
+    </style>
+</head>
+<body class="bg-dark-bg font-sans antialiased">
+    
+    <%- include('partials/header') %>
+
+    <section class="py-24 bg-gray-900 border-b border-dark-card">
+        <div class="container mx-auto px-4 text-center">
+            <div class="mb-6">
+                <span class="inline-block px-4 py-2 bg-rivix-orange/20 border border-rivix-orange/50 rounded-full text-rivix-orange text-sm font-semibold mb-4">
+                    INTERNAL DOCUMENTATION
+                </span>
+            </div>
+            <h1 class="text-5xl lg:text-7xl font-black mb-6 text-white">
+                Launch <span class="text-rivix-orange">MOP</span>
+            </h1>
+            <p class="text-xl text-gray-400 max-w-3xl mx-auto">
+                Method of Procedure - Final 10 non-coding steps for launching Rivix as a legal, professional business
+            </p>
+            <div class="mt-8 flex items-center justify-center gap-4 text-sm text-gray-500">
+                <i class="fas fa-lock text-rivix-orange"></i>
+                <span>For Internal Use Only</span>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-20 bg-dark-bg">
+        <div class="container mx-auto px-4 max-w-5xl">
+            
+            <!-- Section I: Legal & Financial -->
+            <div class="section-card section-legal bg-dark-card p-8 rounded-2xl border border-gray-700 mb-8">
+                <div class="flex items-center gap-4 mb-8">
+                    <div class="w-16 h-16 bg-rivix-blue/20 rounded-xl flex items-center justify-center">
+                        <i class="fas fa-gavel text-rivix-blue text-3xl"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-3xl font-black text-white mb-2">I. Legal & Financial</h2>
+                        <p class="text-gray-400">Establish Rivix as a real business entity and protect personal assets</p>
+                    </div>
+                </div>
+                
+                <div class="space-y-6">
+                    <!-- Task 1 -->
+                    <div class="checklist-item bg-gray-800/50 p-6 rounded-xl border border-gray-700">
+                        <div class="flex items-start gap-4">
+                            <div class="flex-shrink-0 w-8 h-8 rounded-full border-2 border-rivix-blue flex items-center justify-center mt-1">
+                                <span class="text-rivix-blue font-bold text-sm">1</span>
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="text-xl font-bold text-white mb-2">Business Registration</h3>
+                                <p class="text-gray-400 mb-3">Register "Rivix" as a legal entity (LLC, Corporation, etc.) in your state/country. This separates personal and business assets.</p>
+                                <div class="flex items-center gap-2 text-sm text-gray-500">
+                                    <i class="fas fa-info-circle"></i>
+                                    <span>Goal: Ensures you are a real business, not just a passion project, protecting personal assets.</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Task 2 -->
+                    <div class="checklist-item bg-gray-800/50 p-6 rounded-xl border border-gray-700">
+                        <div class="flex items-start gap-4">
+                            <div class="flex-shrink-0 w-8 h-8 rounded-full border-2 border-rivix-blue flex items-center justify-center mt-1">
+                                <span class="text-rivix-blue font-bold text-sm">2</span>
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="text-xl font-bold text-white mb-2">Business Bank Account</h3>
+                                <p class="text-gray-400 mb-3">Open a separate business bank account for all Rivix finances. Keep business and personal finances completely separate.</p>
+                                <div class="flex items-center gap-2 text-sm text-gray-500">
+                                    <i class="fas fa-info-circle"></i>
+                                    <span>Goal: Professional financial separation, easier accounting, and business credibility.</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Task 3 -->
+                    <div class="checklist-item bg-gray-800/50 p-6 rounded-xl border border-gray-700">
+                        <div class="flex items-start gap-4">
+                            <div class="flex-shrink-0 w-8 h-8 rounded-full border-2 border-rivix-blue flex items-center justify-center mt-1">
+                                <span class="text-rivix-blue font-bold text-sm">3</span>
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="text-xl font-bold text-white mb-2">Tax IDs</h3>
+                                <p class="text-gray-400 mb-3">Obtain necessary federal and state tax IDs (e.g., EIN in the US). Required for business banking, payment processing, and tax compliance.</p>
+                                <div class="flex items-center gap-2 text-sm text-gray-500">
+                                    <i class="fas fa-info-circle"></i>
+                                    <span>Goal: Legal compliance, payment gateway requirements, and proper tax reporting.</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Task 4 -->
+                    <div class="checklist-item bg-gray-800/50 p-6 rounded-xl border border-gray-700">
+                        <div class="flex items-start gap-4">
+                            <div class="flex-shrink-0 w-8 h-8 rounded-full border-2 border-rivix-blue flex items-center justify-center mt-1">
+                                <span class="text-rivix-blue font-bold text-sm">4</span>
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="text-xl font-bold text-white mb-2">Business Insurance</h3>
+                                <p class="text-gray-400 mb-3">Research and obtain basic liability and Errors & Omissions (E&O) insurance for a hosting provider. Protects against data loss, downtime claims, and other risks.</p>
+                                <div class="flex items-center gap-2 text-sm text-gray-500">
+                                    <i class="fas fa-info-circle"></i>
+                                    <span>Goal: Protects business assets and provides peace of mind for customers.</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section II: Infrastructure & Billing -->
+            <div class="section-card section-infrastructure bg-dark-card p-8 rounded-2xl border border-gray-700 mb-8">
+                <div class="flex items-center gap-4 mb-8">
+                    <div class="w-16 h-16 bg-rivix-green/20 rounded-xl flex items-center justify-center">
+                        <i class="fas fa-server text-rivix-green text-3xl"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-3xl font-black text-white mb-2">II. Infrastructure & Billing</h2>
+                        <p class="text-gray-400">The ultimate monetization test - make the site functional for taking payments and provisioning services</p>
+                    </div>
+                </div>
+                
+                <div class="space-y-6">
+                    <!-- Task 5 -->
+                    <div class="checklist-item bg-gray-800/50 p-6 rounded-xl border border-gray-700">
+                        <div class="flex items-start gap-4">
+                            <div class="flex-shrink-0 w-8 h-8 rounded-full border-2 border-rivix-green flex items-center justify-center mt-1">
+                                <span class="text-rivix-green font-bold text-sm">5</span>
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="text-xl font-bold text-white mb-2">WHMCS Integration</h3>
+                                <p class="text-gray-400 mb-3">Fully configure WHMCS to communicate with your server nodes. Test provisioning, suspension, billing automation, and all product links from pricing.ejs.</p>
+                                <div class="flex items-center gap-2 text-sm text-gray-500">
+                                    <i class="fas fa-info-circle"></i>
+                                    <span>Goal: The site is useless if it can't take money and provision servers automatically. This is the core business functionality.</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Task 6 -->
+                    <div class="checklist-item bg-gray-800/50 p-6 rounded-xl border border-gray-700">
+                        <div class="flex items-start gap-4">
+                            <div class="flex-shrink-0 w-8 h-8 rounded-full border-2 border-rivix-green flex items-center justify-center mt-1">
+                                <span class="text-rivix-green font-bold text-sm">6</span>
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="text-xl font-bold text-white mb-2">Payment Gateway Setup</h3>
+                                <p class="text-gray-400 mb-3">Set up and thoroughly test PayPal, Stripe, and other payment gateways. Ensure all billing links in pricing.ejs are functional and redirect correctly to the WHMCS cart.</p>
+                                <div class="flex items-center gap-2 text-sm text-gray-500">
+                                    <i class="fas fa-info-circle"></i>
+                                    <span>Goal: Customers must be able to complete purchases. Test with sandbox accounts before going live.</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Task 7 -->
+                    <div class="checklist-item bg-gray-800/50 p-6 rounded-xl border border-gray-700">
+                        <div class="flex items-start gap-4">
+                            <div class="flex-shrink-0 w-8 h-8 rounded-full border-2 border-rivix-green flex items-center justify-center mt-1">
+                                <span class="text-rivix-green font-bold text-sm">7</span>
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="text-xl font-bold text-white mb-2">Monitoring Setup</h3>
+                                <p class="text-gray-400 mb-3">Implement external monitoring (like UptimeRobot, Pingdom, or StatusCake) for your website and core services. Set up alerts for downtime and performance issues.</p>
+                                <div class="flex items-center gap-2 text-sm text-gray-500">
+                                    <i class="fas fa-info-circle"></i>
+                                    <span>Goal: Proactive issue detection, demonstrates reliability, and builds customer trust with transparency.</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section III: Pre-Launch Marketing -->
+            <div class="section-card section-marketing bg-dark-card p-8 rounded-2xl border border-gray-700 mb-8">
+                <div class="flex items-center gap-4 mb-8">
+                    <div class="w-16 h-16 bg-rivix-orange/20 rounded-xl flex items-center justify-center">
+                        <i class="fas fa-rocket text-rivix-orange text-3xl"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-3xl font-black text-white mb-2">III. Pre-Launch Marketing</h2>
+                        <p class="text-gray-400">Generate credibility, professional appearance, and confirm competitive performance</p>
+                    </div>
+                </div>
+                
+                <div class="space-y-6">
+                    <!-- Task 8 -->
+                    <div class="checklist-item bg-gray-800/50 p-6 rounded-xl border border-gray-700">
+                        <div class="flex items-start gap-4">
+                            <div class="flex-shrink-0 w-8 h-8 rounded-full border-2 border-rivix-orange flex items-center justify-center mt-1">
+                                <span class="text-rivix-orange font-bold text-sm">8</span>
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="text-xl font-bold text-white mb-2">Social Proof Seals</h3>
+                                <p class="text-gray-400 mb-3">Obtain and insert placeholder image links for trust badges (e.g., Secure SSL, Verified Payments, BBB Rating, etc.) into the footer. Update footer.ejs with actual badge images.</p>
+                                <div class="flex items-center gap-2 text-sm text-gray-500">
+                                    <i class="fas fa-info-circle"></i>
+                                    <span>Goal: Generates credibility and a professional look. Trust badges significantly improve conversion rates.</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Task 9 -->
+                    <div class="checklist-item bg-gray-800/50 p-6 rounded-xl border border-gray-700">
+                        <div class="flex items-start gap-4">
+                            <div class="flex-shrink-0 w-8 h-8 rounded-full border-2 border-rivix-orange flex items-center justify-center mt-1">
+                                <span class="text-rivix-orange font-bold text-sm">9</span>
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="text-xl font-bold text-white mb-2">Final Performance Testing</h3>
+                                <p class="text-gray-400 mb-3">Conduct a 1-hour "stress test" on your deployed production site using tools like Pingdom, GTmetrix, or Google PageSpeed Insights. Confirm the 100/100 Lighthouse score holds under real-world conditions.</p>
+                                <div class="flex items-center gap-2 text-sm text-gray-500">
+                                    <i class="fas fa-info-circle"></i>
+                                    <span>Goal: Confirms competitive performance. A slow site kills conversions and SEO rankings.</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Task 10 -->
+                    <div class="checklist-item bg-gray-800/50 p-6 rounded-xl border border-gray-700">
+                        <div class="flex items-start gap-4">
+                            <div class="flex-shrink-0 w-8 h-8 rounded-full border-2 border-rivix-orange flex items-center justify-center mt-1">
+                                <span class="text-rivix-orange font-bold text-sm">10</span>
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="text-xl font-bold text-white mb-2">Community Hook</h3>
+                                <p class="text-gray-400 mb-3">Launch a Discord server and link it prominently from the header and footer. Create initial channels for support, announcements, and community discussion. Start building your user base before official launch.</p>
+                                <div class="flex items-center gap-2 text-sm text-gray-500">
+                                    <i class="fas fa-info-circle"></i>
+                                    <span>Goal: Start building community early. A Discord server provides instant support, builds loyalty, and creates a competitive advantage.</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Summary Footer -->
+            <div class="bg-gradient-to-r from-rivix-orange/20 to-rivix-green/20 p-8 rounded-2xl border border-rivix-orange/30 mt-12">
+                <div class="text-center">
+                    <h3 class="text-2xl font-black text-white mb-4">
+                        <i class="fas fa-check-circle text-rivix-green mr-2"></i>
+                        Completion Checklist
+                    </h3>
+                    <p class="text-gray-300 mb-6">
+                        Once all 10 tasks are completed, Rivix will be ready for official public launch as a legal, professional hosting business.
+                    </p>
+                    <div class="flex flex-wrap items-center justify-center gap-4 text-sm">
+                        <div class="flex items-center gap-2 text-gray-400">
+                            <i class="fas fa-gavel text-rivix-blue"></i>
+                            <span>Legal & Financial (4 tasks)</span>
+                        </div>
+                        <div class="flex items-center gap-2 text-gray-400">
+                            <i class="fas fa-server text-rivix-green"></i>
+                            <span>Infrastructure & Billing (3 tasks)</span>
+                        </div>
+                        <div class="flex items-center gap-2 text-gray-400">
+                            <i class="fas fa-rocket text-rivix-orange"></i>
+                            <span>Pre-Launch Marketing (3 tasks)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <%- include('partials/footer') %>
+
+    <script src="/js/main.js"></script>
+</body>
+</html>
+

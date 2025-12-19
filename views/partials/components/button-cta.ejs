@@ -1,0 +1,29 @@
+<% 
+  // Default values if not provided (use internal names to avoid shadowing)
+  var btnText = (typeof text !== 'undefined' && text) ? text : 'Get Started';
+  var btnHref = (typeof href !== 'undefined' && href) ? href : '#';
+  var btnIcon = (typeof icon !== 'undefined') ? icon : null;
+  var btnIsPrimary = (typeof isPrimary !== 'undefined') ? isPrimary : true;
+  var btnTarget = (typeof target !== 'undefined') ? target : '_self';
+  var btnRel = (typeof rel !== 'undefined') ? rel : '';
+  var btnExtraClasses = (typeof extraClasses !== 'undefined') ? extraClasses : '';
+  var btnOnclick = (typeof onclick !== 'undefined') ? onclick : null;
+    
+    // Determine button classes based on isPrimary
+  var buttonClasses = btnIsPrimary 
+        ? 'bg-rivix-orange text-white hover:bg-orange-600 shadow-lg hover:shadow-xl hover:scale-105 btn-cta' 
+        : 'bg-gray-700 text-white hover:bg-gray-600';
+%>
+<a href="<%= btnHref %>"
+   <% if (btnTarget !== '_self') { %>target="<%= btnTarget %>"<% } %>
+   <% if (btnRel) { %>rel="<%= btnRel %>"<% } %>
+   <% if (btnOnclick) { %>onclick="<%= btnOnclick %>"<% } %>
+   class="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl font-bold text-lg transition-all duration-300 no-underline <%= buttonClasses %> <%= btnExtraClasses %>">
+  <% if (btnIcon) { %>
+  <i class="<%= btnIcon %>"></i>
+    <% } %>
+  <span><%= btnText %></span>
+  <% if (btnIsPrimary) { %>
+    <i class="fas fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
+    <% } %>
+</a>

@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="<%= images.logo %>">
+    
+    <%- include('partials/seo-meta', {
+        title: title,
+        metaDescription: 'Learn about Rivix Servers - premium Minecraft hosting powered by dedicated AMD Ryzen 7 CPUs. No overselling, transparent pricing, 24/7 expert support.',
+        canonicalUrl: typeof canonicalUrl !== 'undefined' ? canonicalUrl : (typeof BASE_URL !== 'undefined' ? BASE_URL : 'https://rivixservers.com') + '/about',
+        ogImage: (typeof BASE_URL !== 'undefined' ? BASE_URL : 'https://rivixservers.com') + (typeof images !== 'undefined' && images.hero ? images.hero[2] || images.hero[0] : '/images/hero (1).png'),
+        ogType: 'website'
+    }) %>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
+    
+    <style>
+        /* Base Dark Mode Setup (Consistent with tailwind.config.js) */
+        .bg-dark-bg { background-color: #0F172A; }
+        .bg-dark-card { background-color: #1E293B; }
+        .text-rivix-orange { color: #FF6B00; }
+        .text-rivix-green { color: #22C55E; }
+        .text-rivix-blue { color: #2563EB; }
+        
+        body { padding-top: 72px; background-color: #0F172A; color: #E2E8F0; }
+        section { padding-top: 100px; padding-bottom: 100px; }
+        h1, h2, h3, h4 { font-weight: 900; letter-spacing: -0.04em; color: #F8FAFC; }
+
+        /* Feature Box Styling */
+        .feature-box-dark {
+            background-color: #1E293B;
+            border: 2px solid #374151;
+            padding: 32px;
+            border-radius: 16px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+            transition: all 0.3s ease;
+        }
+        .feature-box-dark:hover {
+            transform: translateY(-5px);
+            border-color: #FF6B00;
+        }
+        .feature-icon-wrapper {
+            width: 64px;
+            height: 64px;
+            margin: 0 auto 24px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: white;
+        }
+    </style>
+</head>
+<body class="bg-dark-bg font-sans antialiased">
+    
+    <%- include('partials/header') %>
+
+    <section class="py-24 bg-gray-900 border-b border-dark-card">
+        <div class="container mx-auto px-4 text-center">
+            <h1 class="text-5xl lg:text-7xl font-black mb-4 text-white" data-aos="fade-down">
+                Our Mission: Host Quality.
+            </h1>
+            <p class="text-xl text-gray-400 max-w-2xl mx-auto" data-aos="fade-down" data-aos-delay="100">
+                We are building the <strong class="text-rivix-orange">transparent, lag-free</strong> home for Minecraft server owners.
+            </p>
+        </div>
+    </section>
+
+    <section class="pt-20 bg-dark-bg">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div class="lg:order-2" data-aos="fade-left">
+                    <img src="<%= images.hero[2] || '/images/hero (3).png' %>" class="img-fluid rounded-xl shadow-2xl border border-gray-700 w-full opacity-90 hover:opacity-100 transition-opacity" alt="Rivix Servers Team and Hardware" width="800" height="600" loading="lazy">
+                </div>
+                <div class="lg:order-1" data-aos="fade-right">
+                    <p class="text-lg font-semibold text-rivix-orange uppercase tracking-wider mb-3">Who We Are</p>
+                    <h2 class="text-4xl lg:text-5xl font-black mb-6 text-white">The Anti-Overselling Standard</h2>
+                    <p class="text-lg text-gray-400 mb-6">
+                        Rivix Servers was founded by frustrated gamers who were tired of the empty promises of "unlimited" and slow "enterprise" hardware. Our mission is simple: <strong class="text-white">We host quality, not quantity</strong>.
+                    </p>
+                    <div class="bg-rivix-orange/10 border-l-4 border-rivix-orange p-6 rounded-lg mb-6">
+                        <p class="text-lg text-white mb-3 font-bold">
+                            Our Transparency Promise:
+                        </p>
+                        <ul class="text-gray-300 space-y-2">
+                            <li class="flex items-start gap-2">
+                                <i class="fas fa-check-circle text-rivix-orange mt-1"></i>
+                                <span><strong>Every server</strong> gets a dedicated <strong>AMD Ryzen 7 CPU core</strong></span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <i class="fas fa-check-circle text-rivix-orange mt-1"></i>
+                                <span><strong>No CPU overselling</strong> - We never share CPU cores between servers</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <i class="fas fa-check-circle text-rivix-orange mt-1"></i>
+                                <span><strong>NVMe SSD storage</strong> - 10x faster than traditional HDDs</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <i class="fas fa-check-circle text-rivix-orange mt-1"></i>
+                                <span><strong>Why Ryzen 7?</strong> Best single-core performance for Minecraft's single-threaded nature</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <p class="text-lg text-gray-400">
+                        Our expert team consists of experienced server administrators who provide 24/7 human support. Our infrastructure is located in <strong class="text-white">Vint Hill / Ashburn, Virginia</strong>, ensuring low latency across North America.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="pt-20 pb-24 bg-gray-900">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16 max-w-4xl mx-auto">
+                <p class="text-lg font-semibold text-rivix-green uppercase tracking-wider mb-3" data-aos="fade-up">Why Choose Us</p>
+                <h2 class="text-4xl lg:text-5xl font-black text-white mb-4" data-aos="fade-up" data-aos-delay="100">What Makes The Rivix Standard Different</h2>
+            </div>
+      
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+                <%- include('partials/components/card-feature', {
+                    title: 'Dedicated Ryzen 7',
+                    description: 'Guaranteed dedicated <strong class="text-white">AMD Ryzen 7</strong> power for the highest TPS stability and lightning-fast performance.',
+                    icon: 'fa-microchip',
+                    iconColor: 'rivix-orange',
+                    borderColor: 'rivix-orange',
+                    shadowColor: 'rivix-orange',
+                    aosDelay: 0
+                }) %>
+                
+                <%- include('partials/components/card-feature', {
+                    title: 'Secure & Reliable',
+                    description: 'Enterprise-grade security, DDoS protection, and a verified <strong class="text-white">99.9% uptime guarantee</strong>.',
+                    icon: 'fa-shield',
+                    iconColor: 'rivix-green',
+                    borderColor: 'rivix-green',
+                    shadowColor: 'rivix-green',
+                    aosDelay: 200
+                }) %>
+                
+                <%- include('partials/components/card-feature', {
+                    title: '24/7 Expert Support',
+                    description: '24/7 human support from technicians who actually play the game and understand your modding needs.',
+                    icon: 'fa-headset',
+                    iconColor: 'rivix-blue',
+                    borderColor: 'rivix-blue',
+                    shadowColor: 'rivix-blue',
+                    aosDelay: 400
+                }) %>
+            </div>
+        </div>
+    </section>
+
+    <%- include('partials/footer') %>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            duration: 800,
+            easing: 'ease',
+            once: true
+        });
+    </script>
+</body>
+</html>

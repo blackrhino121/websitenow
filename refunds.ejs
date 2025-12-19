@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="<%= images.logo %>">
+    
+    <%- include('partials/seo-meta', {
+        title: title,
+        metaDescription: 'Refund Policy for Rivix Servers. Learn about our 48-hour refund window and refund eligibility.',
+        canonicalUrl: typeof canonicalUrl !== 'undefined' ? canonicalUrl : (typeof BASE_URL !== 'undefined' ? BASE_URL : 'https://rivixservers.com') + '/refunds',
+        ogImage: (typeof BASE_URL !== 'undefined' ? BASE_URL : 'https://rivixservers.com') + (typeof images !== 'undefined' && images.hero ? images.hero[0] : '/images/hero (1).png'),
+        ogType: 'website'
+    }) %>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
+    
+    <style>
+        /* Base Dark Mode Setup */
+        .bg-dark-bg { background-color: #0F172A; }
+        .bg-dark-card { background-color: #1E293B; }
+        .text-rivix-orange { color: #FF6B00; }
+        .text-rivix-green { color: #22C55E; }
+        .text-rivix-blue { color: #2563EB; }
+        
+        body { padding-top: 72px; background-color: #0F172A; color: #E2E8F0; }
+        section { padding-top: 100px; padding-bottom: 100px; }
+        h1, h2, h3 { font-weight: 900; letter-spacing: -0.04em; color: #F8FAFC; }
+    </style>
+</head>
+<body class="bg-dark-bg font-sans antialiased">
+    
+    <%- include('partials/header') %>
+
+    <section class="py-24 bg-gray-900 border-b border-dark-card">
+        <div class="container mx-auto px-4 text-center">
+            <h1 class="text-5xl lg:text-7xl font-black mb-4 text-white" data-aos="fade-down">
+                Refund Policy
+            </h1>
+            <p class="text-xl text-gray-400 max-w-2xl mx-auto" data-aos="fade-down" data-aos-delay="100">
+                Last Updated: <%= new Date().toLocaleDateString() %>
+            </p>
+        </div>
+    </section>
+
+    <section class="py-20 bg-dark-bg">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto">
+                
+                <div class="bg-gradient-to-br from-rivix-green/20 to-rivix-green/10 border-2 border-rivix-green/50 p-8 rounded-xl mb-8" data-aos="fade-up">
+                    <div class="flex items-center gap-4 mb-4">
+                        <div class="w-16 h-16 bg-rivix-green rounded-xl flex items-center justify-center">
+                            <i class="fas fa-money-bill-wave text-white text-2xl"></i>
+                        </div>
+                        <h2 class="text-3xl font-black text-white">48-Hour Refund Window</h2>
+                    </div>
+                    <p class="text-gray-300 leading-relaxed text-lg">
+                        Rivix Servers offers a <strong class="text-white">48-hour refund window</strong> on new hosting services.
+                    </p>
+                </div>
+
+                <div class="bg-dark-card p-8 rounded-xl border border-gray-700 mb-6" data-aos="fade-up" data-aos-delay="100">
+                    <h3 class="text-2xl font-bold text-white mb-4 flex items-center gap-2">
+                        <i class="fas fa-check-circle text-rivix-green"></i>
+                        Refund Eligibility
+                    </h3>
+                    <p class="text-gray-300 leading-relaxed mb-4">
+                        Refunds are limited to the initial billing period only and must be requested within 48 hours of service activation. Refunds do not apply to renewals, upgrades, add-ons, dedicated resources, or promotional credits.
+                    </p>
+                </div>
+
+                <div class="bg-dark-card p-8 rounded-xl border border-gray-700 mb-6" data-aos="fade-up" data-aos-delay="200">
+                    <h3 class="text-2xl font-bold text-white mb-4 flex items-center gap-2">
+                        <i class="fas fa-ban text-rivix-orange"></i>
+                        Non-Refundable Services
+                    </h3>
+                    <p class="text-gray-300 leading-relaxed">
+                        Services terminated or suspended for violations of our Terms of Service or Acceptable Use Policy are not eligible for refunds.
+                    </p>
+                </div>
+
+                <div class="bg-dark-card p-8 rounded-xl border border-gray-700 mb-6" data-aos="fade-up" data-aos-delay="300">
+                    <h3 class="text-2xl font-bold text-white mb-4 flex items-center gap-2">
+                        <i class="fas fa-paper-plane text-rivix-blue"></i>
+                        How to Request a Refund
+                    </h3>
+                    <p class="text-gray-300 leading-relaxed mb-4">
+                        Refund requests must be submitted through the Rivix Servers billing or support system. Approved refunds are issued to the original payment method at our discretion.
+                    </p>
+                    <a href="<%= company.ticketUrl %>" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-6 py-3 bg-rivix-orange text-white rounded-xl font-bold hover:bg-orange-600 transition-all duration-300">
+                        <i class="fas fa-ticket-alt"></i>
+                        Submit Refund Request
+                        <i class="fas fa-external-link-alt text-sm"></i>
+                    </a>
+                </div>
+
+                <div class="bg-dark-card p-8 rounded-xl border border-gray-700" data-aos="fade-up" data-aos-delay="400">
+                    <h3 class="text-2xl font-bold text-white mb-4 flex items-center gap-2">
+                        <i class="fas fa-shield-alt text-rivix-orange"></i>
+                        Refund Policy Protection
+                    </h3>
+                    <p class="text-gray-300 leading-relaxed">
+                        We reserve the right to deny refund requests that show abuse of the refund policy.
+                    </p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <%- include('partials/footer') %>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({ duration: 800, once: true });
+    </script>
+</body>
+</html>

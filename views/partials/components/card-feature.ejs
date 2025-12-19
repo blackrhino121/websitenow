@@ -1,0 +1,45 @@
+<% 
+    // Default values if not provided
+    var cardTitle = typeof title !== 'undefined' ? title : 'Feature Title';
+    var cardDescription = typeof description !== 'undefined' ? description : 'Feature description';
+    var cardIcon = typeof icon !== 'undefined' ? icon : 'star';
+    var cardIconType = typeof iconType !== 'undefined' ? iconType : 'lucide';
+    var cardIconColor = typeof iconColor !== 'undefined' ? iconColor : 'rivix-orange';
+    var cardBorderColor = typeof borderColor !== 'undefined' ? borderColor : 'rivix-orange';
+    var cardShadowColor = typeof shadowColor !== 'undefined' ? shadowColor : 'rivix-orange';
+    var cardSpec = typeof spec !== 'undefined' ? spec : null;
+    var cardSpecIcon = typeof specIcon !== 'undefined' ? specIcon : 'fa-check-circle';
+    var cardAosDelay = typeof aosDelay !== 'undefined' ? aosDelay : 0;
+    var cardIconSize = typeof iconSize !== 'undefined' ? iconSize : '4xl';
+    var cardCardSize = typeof cardSize !== 'undefined' ? cardSize : 'p-8';
+    
+    // Color mapping for inline styles
+    var colorMap = {
+        'rivix-primary': { hex: '#6366f1', r: 99, g: 102, b: 241 },
+        'rivix-secondary': { hex: '#8b5cf6', r: 139, g: 92, b: 246 },
+        'rivix-accent': { hex: '#8B5CF6', r: 139, g: 92, b: 246 },
+        'rivix-orange': { hex: '#06B6D4', r: 6, g: 182, b: 212 },
+        'rivix-green': { hex: '#10B981', r: 16, g: 185, b: 129 },
+        'rivix-blue': { hex: '#8B5CF6', r: 139, g: 92, b: 246 }
+    };
+    var iconColor = colorMap[cardIconColor] || colorMap['rivix-primary'];
+    var borderColor = colorMap[cardBorderColor] || colorMap['rivix-primary'];
+%>
+<div class="bg-slate-900/60 backdrop-blur-md <%= cardCardSize %> rounded-xl border border-white/10 transition-all group hover:shadow-xl" data-aos="fade-up"<% if (cardAosDelay > 0) { %> data-aos-delay="<%= cardAosDelay %>"<% } %> onmouseover="this.style.borderColor='<%= borderColor.hex %>80'" onmouseout="this.style.borderColor='rgba(255,255,255,0.1)'">
+    <div class="w-20 h-20 mb-6 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform shadow-lg" style="background: linear-gradient(135deg, rgba(<%= iconColor.r %>, <%= iconColor.g %>, <%= iconColor.b %>, 0.2), rgba(<%= iconColor.r %>, <%= iconColor.g %>, <%= iconColor.b %>, 0.1)); border: 1px solid rgba(<%= iconColor.r %>, <%= iconColor.g %>, <%= iconColor.b %>, 0.2);">
+        <% if (cardIconType === 'lucide') { %>
+            <i data-lucide="<%= cardIcon %>" class="w-10 h-10 lucide-icon" style="color: rgba(255, 255, 255, 0.85);"></i>
+        <% } else { %>
+            <i class="fas <%= cardIcon %> text-<%= cardIconSize %>" style="color: <%= iconColor.hex %>;"></i>
+        <% } %>
+    </div>
+    <h3 class="text-2xl font-black text-white mb-4"><%= cardTitle %></h3>
+    <p class="text-gray-400 mb-4"><%- cardDescription %></p>
+    <% if (cardSpec) { %>
+    <div class="flex items-center gap-2 text-rivix-green text-sm font-semibold">
+        <i class="fas <%= cardSpecIcon %>"></i>
+        <span><%= cardSpec %></span>
+    </div>
+    <% } %>
+</div>
+

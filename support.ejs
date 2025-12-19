@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="<%= images.logo %>">
+    
+    <%- include('partials/seo-meta', {
+        title: title,
+        metaDescription: 'Get help with your Minecraft server. Submit support tickets, access knowledge base, FAQs, tutorials, and 24/7 expert support. Fast response times, transparent support tiers.',
+        canonicalUrl: typeof canonicalUrl !== 'undefined' ? canonicalUrl : (typeof BASE_URL !== 'undefined' ? BASE_URL : 'https://rivixservers.com') + '/support',
+        ogImage: (typeof BASE_URL !== 'undefined' ? BASE_URL : 'https://rivixservers.com') + (typeof images !== 'undefined' && images.hero ? images.hero[0] : '/images/hero (1).png'),
+        ogType: 'website'
+    }) %>
+    
+    <!-- FAQPage Structured Data for SEO -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What payment methods do you accept?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "We accept all major credit cards, PayPal, and cryptocurrency. All payments are processed securely through PCI-compliant payment processors."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Do you offer refunds?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, we offer a 48-hour money-back guarantee on all plans for new customers. This allows you to try our service risk-free. Setup fees and domain registrations are non-refundable."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What makes Ryzen 7 CPUs better for Minecraft?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "AMD Ryzen 7 CPUs provide exceptional single-core performance, which is critical for Minecraft's single-threaded nature. This ensures higher TPS (ticks per second), reduced lag, and consistent performance. Every server gets a dedicated Ryzen 7 CPU core - we never oversell CPU resources."
+          }
+        }
+      ]
+    }
+    </script>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
+    
+    <style>
+        /* Base Dark Mode Setup (Consistent with tailwind.config.js) */
+        .bg-dark-bg { background-color: #0F172A; }
+        .bg-dark-card { background-color: #1E293B; }
+        .text-rivix-orange { color: #FF6B00; }
+        .text-rivix-green { color: #22C55E; }
+        .text-rivix-blue { color: #2563EB; }
+        
+        body { padding-top: 72px; background-color: #0F172A; color: #E2E8F0; }
+        section { padding-top: 100px; padding-bottom: 100px; }
+        h1, h2, h3, h4 { font-weight: 900; letter-spacing: -0.04em; color: #F8FAFC; }
+        
+        /* Tier Card Styling */
+        .tier-card-dark {
+            background-color: #1E293B;
+            border: 1px solid #374151;
+            transition: all 0.3s ease;
+        }
+        .tier-card-dark:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 30px rgba(255, 107, 0, 0.2);
+        }
+        
+        /* Quick Link Styling */
+        .quick-link-dark {
+            background: #1E293B;
+            border: 1px solid #374151;
+            transition: all 0.3s ease;
+        }
+        .quick-link-dark:hover {
+            border-color: #FF6B00;
+            transform: translateX(5px);
+        }
+        
+        /* FAQ Styling */
+        .faq-item-dark {
+            background-color: #1E293B;
+            border: 1px solid #374151;
+        }
+        .faq-item-dark.active {
+            border-color: #2563EB;
+            background-color: #15223e;
+        }
+    </style>
+</head>
+<body class="bg-dark-bg font-sans antialiased">
+    <%- include('partials/header') %>
+    
+    <section class="py-16 bg-gray-900 border-b border-dark-card">
+        <div class="container mx-auto px-4">
+            <div class="max-w-6xl mx-auto">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center mb-12">
+                    <div class="order-2 lg:order-1 text-center lg:text-left">
+                        <h1 class="text-5xl lg:text-6xl font-black mb-4 text-white" data-aos="fade-down">Support Center</h1>
+                        <p class="text-xl text-gray-300 mb-8" data-aos="fade-down" data-aos-delay="100">
+                            Need help? Submit a ticket or search our resources below.
+                        </p>
+                    </div>
+                    <div class="order-1 lg:order-2" data-aos="fade-left">
+                        <img 
+                            src="/images/random (7).png" 
+                            alt="Rivix Servers Support Center" 
+                            class="w-full h-auto rounded-xl shadow-2xl border border-gray-700/50"
+                            width="800"
+                            height="600"
+                            loading="eager"
+                            fetchpriority="high"
+                        >
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Quick Ticket Widget - Prominent and Simple -->
+            <div class="max-w-2xl mx-auto mb-16" data-aos="fade-up" data-aos-delay="200">
+                <div class="bg-gradient-to-br from-rivix-orange/20 to-rivix-orange/10 border-2 border-rivix-orange/50 rounded-2xl p-8 shadow-2xl">
+                    <div class="flex items-center justify-center mb-6">
+                        <div class="w-16 h-16 bg-rivix-orange rounded-full flex items-center justify-center shadow-lg">
+                            <i class="fa fa-ticket-alt text-3xl text-white"></i>
+                        </div>
+                    </div>
+                    <h2 class="text-3xl font-black text-white mb-4 text-center">Submit a Support Ticket</h2>
+                    <p class="text-gray-300 text-center mb-6 text-lg">
+                        Have an issue? Describe your problem and we'll get back to you. Response time is usually under 30 minutes during business hours.
+                    </p>
+                    <div class="space-y-4 mb-6">
+                        <div class="bg-dark-bg/50 rounded-lg p-4 text-left">
+                            <p class="text-white font-semibold mb-2"><i class="fa fa-info-circle text-rivix-orange mr-2"></i>Before you submit:</p>
+                            <ul class="text-gray-300 text-sm space-y-1 ml-6 list-disc">
+                                <li>Include your server IP or billing account email</li>
+                                <li>Describe what you were doing when the issue occurred</li>
+                                <li>Include any error messages you saw</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <a href="<%= company.ticketUrl %>" target="_blank" rel="noopener noreferrer" class="block w-full py-4 px-8 bg-rivix-orange text-white rounded-xl font-black text-xl hover:bg-orange-600 transition-all duration-300 shadow-xl hover:scale-105 text-center no-underline">
+                        <i class="fa fa-ticket-alt mr-2"></i>
+                        Create Support Ticket
+                        <i class="fa fa-external-link-alt ml-2 text-sm"></i>
+                    </a>
+                    <p class="text-gray-400 text-sm text-center mt-4">
+                        Opens in a new tab. You'll need to log in with your billing account.
+                    </p>
+                </div>
+            </div>
+            
+            <!-- Search Bar -->
+            <div class="max-w-2xl mx-auto" data-aos="fade-up" data-aos-delay="300">
+                <div class="relative">
+                    <input type="text" class="w-full px-6 py-4 bg-gray-800 border border-gray-700 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-rivix-orange focus:ring-1 focus:ring-rivix-orange transition-all" 
+                        placeholder="Search guides, tutorials, or FAQs..." id="support-search" onkeyup="searchSupportContent(this.value)">
+                    <i class="fa fa-search absolute right-5 top-1/2 transform -translate-y-1/2 text-gray-500 pointer-events-none"></i>
+                </div>
+                <p class="mt-3 text-gray-500 text-sm text-center">Or search our knowledge base for instant answers</p>
+            </div>
+        </div>
+    </section>
+    
+    <section class="py-16 bg-dark-card border-b border-gray-700">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl font-black text-white mb-4" data-aos="fade-up">Support Options</h2>
+                <p class="text-lg text-gray-400 max-w-3xl mx-auto" data-aos="fade-up" data-aos-delay="100">Choose the option that fits your needs. Most issues can be solved with a quick search, but we're here if you need direct help.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-8">
+                <div class="tier-card-dark rounded-xl p-6 text-center h-full relative border-rivix-green" data-aos="fade-up">
+                    <div class="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-rivix-green text-white px-5 py-2 rounded-2xl font-bold text-xs shadow-lg">TIER 0</div>
+                    <div class="w-16 h-16 mx-auto mb-5 bg-rivix-green rounded-xl flex items-center justify-center shadow-lg">
+                        <i class="fa fa-search text-2xl text-white"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">Self-Service</h3>
+                    <p class="text-gray-400 mb-5">Search our guides and FAQs. Most common questions have answers here.</p>
+                    <a href="#tier-0" class="text-rivix-green font-bold text-sm inline-flex items-center gap-2 hover:underline transition-colors">
+                        Browse Resources <i class="fa fa-arrow-right"></i>
+                    </a>
+                </div>
+                
+                <div class="tier-card-dark rounded-xl p-6 text-center h-full relative border-rivix-blue" data-aos="fade-up" data-aos-delay="100">
+                    <div class="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-rivix-blue text-white px-5 py-2 rounded-2xl font-bold text-xs shadow-lg">TIER 1</div>
+                    <div class="w-16 h-16 mx-auto mb-5 bg-rivix-blue rounded-xl flex items-center justify-center shadow-lg">
+                        <i class="fa fa-headset text-2xl text-white"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">Live Chat</h3>
+                    <p class="text-gray-400 mb-5">Quick questions? Chat with our team. Good for billing, account issues, and simple problems.</p>
+                    <a href="#tier-1" class="text-rivix-blue font-bold text-sm inline-flex items-center gap-2 hover:underline transition-colors">
+                        Open Chat <i class="fa fa-arrow-right"></i>
+                    </a>
+                </div>
+                
+                <div class="tier-card-dark rounded-xl p-6 text-center h-full relative border-purple-500" data-aos="fade-up" data-aos-delay="200">
+                    <div class="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-purple-600 text-white px-5 py-2 rounded-2xl font-bold text-xs shadow-lg">TIER 2</div>
+                    <div class="w-16 h-16 mx-auto mb-5 bg-purple-600 rounded-xl flex items-center justify-center shadow-lg">
+                        <i class="fa fa-user-cog text-2xl text-white"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">Technical Help</h3>
+                    <p class="text-gray-400 mb-5">Complex issues? Modpack problems? Server configs? Submit a ticket and our technical team will help.</p>
+                    <a href="#tier-2" class="text-purple-400 font-bold text-sm inline-flex items-center gap-2 hover:underline transition-colors">
+                        Technical Support <i class="fa fa-arrow-right"></i>
+                    </a>
+                </div>
+                
+                <div class="tier-card-dark rounded-xl p-6 text-center h-full relative border-rivix-orange" data-aos="fade-up" data-aos-delay="300">
+                    <div class="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-rivix-orange text-white px-5 py-2 rounded-2xl font-bold text-xs shadow-lg">TIER 3</div>
+                    <div class="w-16 h-16 mx-auto mb-5 bg-rivix-orange rounded-xl flex items-center justify-center shadow-lg">
+                        <i class="fa fa-server text-2xl text-white"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">Critical Issues</h3>
+                    <p class="text-gray-400 mb-5">Server down? Security issue? Infrastructure problem? These get escalated immediately to our engineering team.</p>
+                    <a href="<%= company.ticketUrl %>" target="_blank" rel="noopener noreferrer" class="text-rivix-orange font-bold text-sm inline-flex items-center gap-2 hover:underline transition-colors">
+                        Submit Critical Ticket <i class="fa fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section id="tier-0" class="py-20 bg-gray-900 border-b border-dark-card">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16 max-w-4xl mx-auto">
+                <div class="inline-block bg-rivix-green text-white px-5 py-2 rounded-2xl font-bold text-xs mb-4 shadow-lg" data-aos="fade-up">TIER 0 - SELF-SERVICE</div>
+                <h2 class="text-4xl font-black text-white mb-4" data-aos="fade-up" data-aos-delay="100">Find Answers Instantly</h2>
+                <p class="text-lg text-gray-400 max-w-2xl mx-auto" data-aos="fade-up" data-aos-delay="200">Most questions can be answered quickly using our comprehensive self-service resources. Start here to save time.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+                <a href="#faqs" class="quick-link-dark rounded-xl p-6 flex items-center gap-4 h-full hover:shadow-xl" data-aos="fade-up">
+                    <div class="w-14 h-14 bg-rivix-orange rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg">
+                        <i class="fa fa-question-circle text-2xl text-white"></i>
+                    </div>
+                    <div>
+                        <div class="font-bold mb-1 text-lg text-white">Frequently Asked Questions</div>
+                        <div class="text-gray-400 text-sm">Common questions & answers</div>
+                    </div>
+                </a>
+                <a href="#getting-started" class="quick-link-dark rounded-xl p-6 flex items-center gap-4 h-full hover:shadow-xl" data-aos="fade-up" data-aos-delay="100">
+                    <div class="w-14 h-14 bg-rivix-blue rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg">
+                        <i class="fa fa-rocket text-2xl text-white"></i>
+                    </div>
+                    <div>
+                        <div class="font-bold mb-1 text-lg text-white">Getting Started Guides</div>
+                        <div class="text-gray-400 text-sm">Server setup tutorials</div>
+                    </div>
+                </a>
+                <a href="#server-management" class="quick-link-dark rounded-xl p-6 flex items-center gap-4 h-full hover:shadow-xl" data-aos="fade-up" data-aos-delay="200">
+                    <div class="w-14 h-14 bg-purple-600 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg">
+                        <i class="fa fa-cog text-2xl text-white"></i>
+                    </div>
+                    <div>
+                        <div class="font-bold mb-1 text-lg text-white">Server Management</div>
+                        <div class="text-gray-400 text-sm">Control panel tutorials</div>
+                    </div>
+                </a>
+                <a href="#troubleshooting" class="quick-link-dark rounded-xl p-6 flex items-center gap-4 h-full hover:shadow-xl" data-aos="fade-up" data-aos-delay="300">
+                    <div class="w-14 h-14 bg-rivix-orange rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg">
+                        <i class="fa fa-tools text-2xl text-white"></i>
+                    </div>
+                    <div>
+                        <div class="font-bold mb-1 text-lg text-white">Troubleshooting</div>
+                        <div class="text-gray-400 text-sm">Common issues & fixes</div>
+                    </div>
+                </a>
+                <a href="<%= company.billingUrl %>" target="_blank" rel="noopener noreferrer" class="quick-link-dark rounded-xl p-6 flex items-center gap-4 h-full hover:shadow-xl" data-aos="fade-up" data-aos-delay="400">
+                    <div class="w-14 h-14 bg-pink-600 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg">
+                        <i class="fa fa-credit-card text-2xl text-white"></i>
+                    </div>
+                    <div>
+                        <div class="font-bold mb-1 text-lg text-white">Billing Portal</div>
+                        <div class="text-gray-400 text-sm">Manage account & billing</div>
+                    </div>
+                </a>
+                <a href="<%= company.ticketUrl %>" target="_blank" rel="noopener noreferrer" class="quick-link-dark rounded-xl p-6 flex items-center gap-4 h-full hover:shadow-xl border-2 border-rivix-orange/50 hover:border-rivix-orange" data-aos="fade-up" data-aos-delay="500">
+                    <div class="w-14 h-14 bg-rivix-orange rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg">
+                        <i class="fa fa-ticket-alt text-2xl text-white"></i>
+                    </div>
+                    <div>
+                        <div class="font-bold mb-1 text-lg text-white">Create Support Ticket</div>
+                        <div class="text-gray-400 text-sm">Submit a detailed ticket for any issue</div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+    
+    <section id="tier-1" class="py-20 bg-dark-bg border-b border-dark-card">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16 max-w-4xl mx-auto">
+                <div class="inline-block bg-rivix-blue text-white px-5 py-2 rounded-2xl font-bold text-xs mb-4 shadow-lg" data-aos="fade-up">TIER 1 - FRONT-LINE SUPPORT</div>
+                <h2 class="text-4xl font-black text-white mb-4" data-aos="fade-up" data-aos-delay="100">Get Direct Help</h2>
+                <p class="text-lg text-gray-400 max-w-2xl mx-auto" data-aos="fade-up" data-aos-delay="200">Chat with us or submit a ticket. We respond quickly to billing questions, account issues, and technical problems.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                
+                <div class="tier-card-dark rounded-xl p-8 border-rivix-blue hover:border-rivix-orange" data-aos="fade-up">
+                    <div class="w-16 h-16 mb-6 bg-rivix-blue rounded-xl flex items-center justify-center shadow-xl">
+                        <i class="fa fa-comments text-3xl text-white"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-white mb-3">Live Chat</h3>
+                    <p class="text-gray-400 mb-6">Quick questions? Chat works best for:</p>
+                    <ul class="list-none p-0 mb-6 space-y-3 text-sm text-gray-300">
+                        <li class="flex items-start gap-3"><i class="fa fa-check-circle text-rivix-blue mt-1 flex-shrink-0"></i> <span>Billing questions</span></li>
+                        <li class="flex items-start gap-3"><i class="fa fa-check-circle text-rivix-blue mt-1 flex-shrink-0"></i> <span>Account access problems</span></li>
+                        <li class="flex items-start gap-3"><i class="fa fa-check-circle text-rivix-blue mt-1 flex-shrink-0"></i> <span>Simple server issues</span></li>
+                        <li class="flex items-start gap-3"><i class="fa fa-check-circle text-rivix-blue mt-1 flex-shrink-0"></i> <span>Plan upgrades</span></li>
+                    </ul>
+                    <div class="bg-gray-800 p-4 rounded-lg border-l-4 border-rivix-blue mt-4">
+                        <p class="text-white font-semibold mb-2"><i class="fa fa-info-circle text-rivix-blue mr-2"></i>How it works:</p>
+                        <p class="text-gray-400 text-sm">Look for the chat button in the bottom-right corner of any page. Usually available 9am-9pm EST.</p>
+                    </div>
+                </div>
+                
+                <div class="tier-card-dark rounded-xl p-8 border-rivix-green hover:border-rivix-orange" data-aos="fade-up" data-aos-delay="200">
+                    <div class="w-16 h-16 mb-6 bg-rivix-green rounded-xl flex items-center justify-center shadow-xl">
+                        <i class="fa fa-envelope text-3xl text-white"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-white mb-3">Support Tickets</h3>
+                    <p class="text-gray-400 mb-6">Submit a ticket for anything that needs documentation or a detailed response:</p>
+                    <ul class="list-none p-0 mb-6 space-y-3 text-sm text-gray-300">
+                        <li class="flex items-start gap-3"><i class="fa fa-check-circle text-rivix-green mt-1 flex-shrink-0"></i> <span>Technical problems</span></li>
+                        <li class="flex items-start gap-3"><i class="fa fa-check-circle text-rivix-green mt-1 flex-shrink-0"></i> <span>Billing issues or refunds</span></li>
+                        <li class="flex items-start gap-3"><i class="fa fa-check-circle text-rivix-green mt-1 flex-shrink-0"></i> <span>Security concerns</span></li>
+                        <li class="flex items-start gap-3"><i class="fa fa-check-circle text-rivix-green mt-1 flex-shrink-0"></i> <span>Complex server configurations</span></li>
+                    </ul>
+                    <a href="<%= company.ticketUrl %>" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-6 py-3 bg-rivix-green text-white rounded-xl font-semibold hover:bg-green-700 transition-all duration-300 shadow-md no-underline">
+                        <i class="fa fa-ticket-alt"></i>
+                        <span>Create Ticket</span>
+                        <i class="fa fa-external-link-alt text-sm"></i>
+                    </a>
+                    <div class="bg-gray-800 p-4 rounded-lg border-l-4 border-rivix-green mt-4">
+                        <p class="text-white font-semibold mb-2"><i class="fa fa-info-circle text-rivix-green mr-2"></i>Why tickets:</p>
+                        <p class="text-gray-400 text-sm">We can see your account history automatically. Include server details and we'll respond faster.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section id="tier-2" class="py-20 bg-gray-900 border-b border-dark-card">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16 max-w-4xl mx-auto">
+                <div class="inline-block bg-purple-600 text-white px-5 py-2 rounded-2xl font-bold text-xs mb-4 shadow-lg" data-aos="fade-up">TIER 2 & 3 - EXPERT ESCALATION</div>
+                <h2 class="text-4xl font-black text-white mb-4" data-aos="fade-up" data-aos-delay="100">Technical Deep Dive & Troubleshooting</h2>
+                <p class="text-lg text-gray-400 max-w-2xl mx-auto" data-aos="fade-up" data-aos-delay="200">Tier 2 experts handle advanced configurations and Tier 3 handles critical infrastructure issues.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-6xl mx-auto">
+                <div class="tier-card-dark rounded-xl p-8 border-purple-500 hover:border-rivix-orange" data-aos="fade-up">
+                    <div class="w-16 h-16 mb-6 bg-purple-600 rounded-xl flex items-center justify-center shadow-xl">
+                        <i class="fa fa-user-cog text-3xl text-white"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-white mb-3">Tier 2: Technical Experts</h3>
+                    <p class="text-gray-400 mb-6">Our experts specialize in advanced server configurations and modding issues, including:</p>
+                    <ul class="list-none p-0 space-y-3 text-sm text-gray-300">
+                        <li class="flex items-start gap-3"><i class="fa fa-server text-purple-400 mt-1 flex-shrink-0"></i> <span>Advanced JVM Arguments & Optimization</span></li>
+                        <li class="flex items-start gap-3"><i class="fa fa-puzzle-piece text-purple-400 mt-1 flex-shrink-0"></i> <span>Complex Modpack & Plugin Issues</span></li>
+                        <li class="flex items-start gap-3"><i class="fa fa-network-wired text-purple-400 mt-1 flex-shrink-0"></i> <span>Network Issues & Firewall Configuration</span></li>
+                        <li class="flex items-start gap-3"><i class="fa fa-database text-purple-400 mt-1 flex-shrink-0"></i> <span>Corrupted World Recovery</span></li>
+                    </ul>
+                </div>
+
+                <div class="space-y-4" id="troubleshooting-accordion" data-aos="fade-up" data-aos-delay="200">
+                    <div class="faq-item-dark rounded-xl overflow-hidden" data-faq-id="101">
+                        <button onclick="toggleFAQ(101)" class="w-full px-6 py-5 text-left flex items-center justify-between gap-4 transition-colors duration-300 hover:bg-gray-800" id="faq-title-101">
+                            <span class="text-lg font-semibold text-white flex-1"><i class="fa fa-exclamation-triangle text-rivix-orange mr-3"></i> Server won't start</span>
+                            <i class="fa fa-chevron-down text-rivix-blue transition-transform duration-300 flex-shrink-0" id="faq-icon-101"></i>
+                        </button>
+                        <div class="faq-content max-h-0 overflow-hidden transition-all duration-300 ease-in-out" id="faq-content-101">
+                            <div class="px-6 pb-5 text-gray-400 leading-relaxed">
+                                <p><strong>Common causes:</strong> Incorrect JAR file, insufficient RAM allocated, or corrupted server files.</p>
+                                <p><strong>Solution:</strong> Check your server logs, ensure the correct JAR file is selected, and try restoring from a recent backup.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="faq-item-dark rounded-xl overflow-hidden" data-faq-id="102">
+                        <button onclick="toggleFAQ(102)" class="w-full px-6 py-5 text-left flex items-center justify-between gap-4 transition-colors duration-300 hover:bg-gray-800" id="faq-title-102">
+                            <span class="text-lg font-semibold text-white flex-1"><i class="fa fa-wifi text-rivix-blue mr-3"></i> Players can't connect</span>
+                            <i class="fa fa-chevron-down text-rivix-blue transition-transform duration-300 flex-shrink-0" id="faq-icon-102"></i>
+                        </button>
+                        <div class="faq-content max-h-0 overflow-hidden transition-all duration-300 ease-in-out" id="faq-content-102">
+                            <div class="px-6 pb-5 text-gray-400 leading-relaxed">
+                                <p><strong>Common causes:</strong> Server is offline, incorrect IP/Port, or Whitelist is enabled.</p>
+                                <p><strong>Solution:</strong> Verify the server status in the control panel and check your `server.properties` file.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="faq-item-dark rounded-xl overflow-hidden" data-faq-id="103">
+                        <button onclick="toggleFAQ(103)" class="w-full px-6 py-5 text-left flex items-center justify-between gap-4 transition-colors duration-300 hover:bg-gray-800" id="faq-title-103">
+                            <span class="text-lg font-semibold text-white flex-1"><i class="fa fa-tachometer-alt text-rivix-green mr-3"></i> Server lag or low TPS</span>
+                            <i class="fa fa-chevron-down text-rivix-blue transition-transform duration-300 flex-shrink-0" id="faq-icon-103"></i>
+                        </button>
+                        <div class="faq-content max-h-0 overflow-hidden transition-all duration-300 ease-in-out" id="faq-content-103">
+                            <div class="px-6 pb-5 text-gray-400 leading-relaxed">
+                                <p><strong>Common causes:</strong> High view distance, entity cramming, or heavy plugins/mods.</p>
+                                <p><strong>Solution:</strong> Lower view distance, check the console for memory warnings, and consider optimizing your world with server-side mods like Lithium or Phosphor.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="getting-started" class="py-20 bg-dark-bg border-b border-dark-card">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16 max-w-4xl mx-auto">
+                <h2 class="text-4xl font-black text-white mb-4" data-aos="fade-up">Guides and Tutorials</h2>
+                <p class="text-lg text-gray-400 max-w-2xl mx-auto" data-aos="fade-up" data-aos-delay="100">Step-by-step tutorials to get your Minecraft server up and running</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto">
+                <div class="tier-card-dark p-8 rounded-xl border-rivix-green hover:border-rivix-orange shadow-xl" data-aos="fade-up">
+                    <div class="w-16 h-16 mb-6 bg-rivix-green rounded-xl flex items-center justify-center shadow-xl">
+                        <i class="fa fa-play-circle text-3xl text-white"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">Initial Server Setup</h3>
+                    <p class="text-gray-400 mb-4">Learn how to set up your Minecraft server in under 5 minutes. From purchase to first player join.</p>
+                    <a href="#" class="text-rivix-green font-bold text-sm inline-flex items-center gap-2 hover:underline transition-colors">Read Guide <i class="fa fa-arrow-right"></i></a>
+                </div>
+                
+                <div class="tier-card-dark p-8 rounded-xl border-rivix-blue hover:border-rivix-orange shadow-xl" data-aos="fade-up" data-aos-delay="100">
+                    <div class="w-16 h-16 mb-6 bg-rivix-blue rounded-xl flex items-center justify-center shadow-xl">
+                        <i class="fa fa-cube text-3xl text-white"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">Modpack Installation</h3>
+                    <p class="text-gray-400 mb-4">Complete guide to using our One-Click installer for modpacks like RLCraft and All The Mods.</p>
+                    <a href="#" class="text-rivix-blue font-bold text-sm inline-flex items-center gap-2 hover:underline transition-colors">Read Guide <i class="fa fa-arrow-right"></i></a>
+                </div>
+                
+                <div class="tier-card-dark p-8 rounded-xl border-rivix-orange hover:border-rivix-orange shadow-xl" data-aos="fade-up" data-aos-delay="200">
+                    <div class="w-16 h-16 mb-6 bg-rivix-orange rounded-xl flex items-center justify-center shadow-xl">
+                        <i class="fa fa-chart-line text-3xl text-white"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">Performance Optimization</h3>
+                    <p class="text-gray-400 mb-4">Tips and tricks to ensure your Ryzen 7 server delivers maximum TPS, even under heavy load.</p>
+                    <a href="#" class="text-rivix-orange font-bold text-sm inline-flex items-center gap-2 hover:underline transition-colors">Read Guide <i class="fa fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-20 bg-dark-card text-white border-t border-gray-700">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-4xl lg:text-5xl font-black mb-6" data-aos="fade-up">Still Need Help?</h2>
+            <p class="text-xl mb-8 text-gray-300" data-aos="fade-up" data-aos-delay="100">Chat with us or submit a ticket. We usually respond within 30 minutes.</p>
+            <div class="flex justify-center flex-wrap gap-4" data-aos="fade-up" data-aos-delay="200">
+                <button onclick="if(typeof openTawkChat==='function'){openTawkChat();}else{console.log('Chat loading...');}" class="inline-flex items-center gap-3 px-12 py-5 text-xl font-bold bg-rivix-green text-white rounded-xl shadow-2xl hover:bg-green-700 no-underline transition-all duration-300">
+                    <i class="fa fa-comments"></i> Open Chat
+                </button>
+                <a href="<%= company.ticketUrl %>" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-3 px-12 py-5 text-xl font-bold bg-rivix-orange text-white rounded-xl shadow-xl hover:bg-orange-600 no-underline transition-all duration-300">
+                    <i class="fa fa-ticket-alt"></i> Create Ticket
+                    <i class="fa fa-external-link-alt text-sm"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <%- include('partials/footer') %>
+    
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({ duration: 800, once: true });
+        
+        // --- FAQ Toggle Logic (Reused from support.ejs) ---
+        function toggleFAQ(faqId) {
+            const content = document.getElementById(`faq-content-${faqId}`);
+            const icon = document.getElementById(`faq-icon-${faqId}`);
+            const item = document.querySelector(`[data-faq-id="${faqId}"]`);
+            if (!content || !icon || !item) return;
+
+            const isOpen = content.classList.contains('open');
+            
+            // Close all other FAQs
+            document.querySelectorAll('.faq-content').forEach(faqContent => {
+                if (faqContent !== content && faqContent.classList.contains('open')) {
+                    const otherId = faqContent.id.replace('faq-content-', '');
+                    const otherIcon = document.getElementById(`faq-icon-${otherId}`);
+                    const otherItem = document.querySelector(`[data-faq-id="${otherId}"]`);
+                    
+                    faqContent.classList.remove('open');
+                    faqContent.style.maxHeight = '0';
+                    if (otherIcon) otherIcon.classList.remove('rotate-180');
+                    if (otherItem) otherItem.classList.remove('active');
+                }
+            });
+
+            // Toggle current FAQ
+            if (isOpen) {
+                content.classList.remove('open');
+                content.style.maxHeight = '0';
+                icon.classList.remove('rotate-180');
+                item.classList.remove('active');
+            } else {
+                content.classList.add('open');
+                content.style.maxHeight = content.scrollHeight + 'px';
+                icon.classList.add('rotate-180');
+                item.classList.add('active');
+            }
+        }
+    </script>
+</body>
+</html>

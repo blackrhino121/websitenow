@@ -1,0 +1,102 @@
+<!-- Skip to main content link for accessibility -->
+<a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[100] focus:px-4 focus:py-2 focus:bg-rivix-orange focus:text-white focus:rounded-lg focus:font-bold">
+    Skip to main content
+</a>
+
+<header class="fixed top-0 left-0 right-0 z-50 bg-dark-bg/95 backdrop-blur-md border-b border-gray-800/50 shadow-xl transition-all duration-300 header-scrolled:py-2">
+    <nav class="container mx-auto px-4 py-4">
+        <div class="flex items-center justify-between">
+            <a href="/" class="flex items-center gap-3 hover:opacity-90 transition-opacity">
+                <img src="<%= images.logo %>" alt="Rivix Servers Logo" class="h-12 w-auto drop-shadow-lg" style="filter: drop-shadow(0 2px 4px rgba(255, 255, 255, 0.1));" width="180" height="48" loading="eager" fetchpriority="high" onerror="this.onerror=null; this.style.display='none'; this.nextElementSibling.classList.remove('hidden');">
+                <span class="text-2xl font-black text-white hidden">
+                    <span class="text-rivix-orange">Rivix</span> <span class="hidden sm:inline">Servers</span>
+                </span>
+            </a>
+            <div class="hidden md:flex items-center gap-6">
+                <a href="/pricing" class="text-gray-300 hover:text-rivix-orange transition-colors font-medium relative group px-2">
+                    Pricing
+                    <span class="absolute -bottom-1 left-2 w-0 h-0.5 bg-rivix-orange transition-all group-hover:w-[calc(100%-1rem)]"></span>
+                </a>
+                <a href="/support" class="text-gray-300 hover:text-rivix-orange transition-colors font-medium relative group px-2">
+                    Support
+                    <span class="absolute -bottom-1 left-2 w-0 h-0.5 bg-rivix-orange transition-all group-hover:w-[calc(100%-1rem)]"></span>
+                </a>
+                <a href="/locations" class="text-gray-300 hover:text-rivix-orange transition-colors font-medium relative group px-2">
+                    Locations
+                    <span class="absolute -bottom-1 left-2 w-0 h-0.5 bg-rivix-orange transition-all group-hover:w-[calc(100%-1rem)]"></span>
+                </a>
+                <a href="/about" class="text-gray-300 hover:text-rivix-orange transition-colors font-medium relative group px-2">
+                    About
+                    <span class="absolute -bottom-1 left-2 w-0 h-0.5 bg-rivix-orange transition-all group-hover:w-[calc(100%-1rem)]"></span>
+                </a>
+                <a href="/contact" class="text-gray-300 hover:text-rivix-orange transition-colors font-medium relative group px-2">
+                    Contact
+                    <span class="absolute -bottom-1 left-2 w-0 h-0.5 bg-rivix-orange transition-all group-hover:w-[calc(100%-1rem)]"></span>
+                </a>
+                <a href="<%= company.ticketUrl %>" target="_blank" rel="noopener noreferrer" class="px-5 py-2.5 bg-rivix-orange text-white rounded-lg font-bold hover:bg-orange-600 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105">
+                    <i class="fas fa-ticket-alt mr-2"></i>Support Tickets
+                </a>
+                <!-- Login Dropdown -->
+                <div class="relative group">
+                    <button class="px-6 py-2.5 bg-gradient-to-r from-rivix-blue to-rivix-orange text-white rounded-lg font-bold hover:from-blue-600 hover:to-orange-600 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 flex items-center gap-2">
+                        <i class="fas fa-sign-in-alt"></i>
+                        <span>LOGIN</span>
+                        <i class="fas fa-chevron-down text-sm transition-transform group-hover:rotate-180"></i>
+                    </button>
+                    <div class="absolute right-0 mt-2 w-56 bg-dark-card/95 backdrop-blur-md border border-gray-700 rounded-xl shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
+                        <div class="py-2">
+                            <a href="<%= company.billingUrl %>" target="_blank" rel="noopener noreferrer" class="block px-6 py-3 text-white hover:bg-rivix-orange/20 transition-colors border-b border-gray-700/50">
+                                <div class="flex items-center gap-3">
+                                    <i class="fas fa-credit-card text-rivix-orange"></i>
+                                    <div>
+                                        <div class="font-bold text-sm">Billing Login</div>
+                                        <div class="text-xs text-gray-400">Manage billing & invoices</div>
+                                    </div>
+                                </div>
+                            </a>
+                            <a href="https://panel.rivixservers.com" target="_blank" rel="noopener noreferrer" class="block px-6 py-3 text-white hover:bg-rivix-blue/20 transition-colors">
+                                <div class="flex items-center gap-3">
+                                    <i class="fas fa-server text-rivix-blue"></i>
+                                    <div>
+                                        <div class="font-bold text-sm">Panel Login</div>
+                                        <div class="text-xs text-gray-400">Access server control panel</div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Mobile Menu Button -->
+            <button id="mobile-menu-btn" class="md:hidden text-gray-300 hover:text-white">
+                <i class="fas fa-bars text-2xl"></i>
+            </button>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden mt-4 pb-4 border-t border-gray-800">
+            <div class="flex flex-col gap-4 pt-4">
+                <a href="/pricing" class="text-gray-300 hover:text-rivix-orange transition-colors font-medium">Pricing</a>
+                <a href="/support" class="text-gray-300 hover:text-rivix-orange transition-colors font-medium">Support</a>
+                <a href="/locations" class="text-gray-300 hover:text-rivix-orange transition-colors font-medium">Locations</a>
+                <a href="/about" class="text-gray-300 hover:text-rivix-orange transition-colors font-medium">About</a>
+                <a href="/contact" class="text-gray-300 hover:text-rivix-orange transition-colors font-medium">Contact</a>
+                <a href="<%= company.ticketUrl %>" target="_blank" rel="noopener noreferrer" class="px-5 py-2.5 bg-rivix-orange text-white rounded-lg font-bold hover:bg-orange-600 transition-all text-center">
+                    <i class="fas fa-ticket-alt mr-2"></i>Support Tickets
+                </a>
+                <a href="<%= company.billingUrl %>" target="_blank" rel="noopener noreferrer" class="px-5 py-2.5 bg-rivix-blue text-white rounded-lg font-bold hover:bg-blue-600 transition-all text-center mb-2">
+                    <i class="fas fa-credit-card mr-2"></i>Billing Login
+                </a>
+                <a href="https://panel.rivixservers.com" target="_blank" rel="noopener noreferrer" class="px-5 py-2.5 bg-rivix-orange text-white rounded-lg font-bold hover:bg-orange-600 transition-all text-center">
+                    <i class="fas fa-server mr-2"></i>Panel Login
+                </a>
+            </div>
+        </div>
+    </nav>
+</header>
+
+<script nonce="<%= typeof nonce !== 'undefined' ? nonce : '' %>">
+    document.getElementById('mobile-menu-btn')?.addEventListener('click', function() {
+        const menu = document.getElementById('mobile-menu');
+        menu?.classList.toggle('hidden');
+    });
+</script>

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="<%= images.logo %>">
+    
+    <%- include('partials/seo-meta', {
+        title: title,
+        metaDescription: 'Terms of Service for Rivix Servers. Read our terms and conditions for Minecraft server hosting services.',
+        canonicalUrl: typeof canonicalUrl !== 'undefined' ? canonicalUrl : (typeof BASE_URL !== 'undefined' ? BASE_URL : 'https://rivixservers.com') + '/terms',
+        ogImage: (typeof BASE_URL !== 'undefined' ? BASE_URL : 'https://rivixservers.com') + (typeof images !== 'undefined' && images.hero ? images.hero[0] : '/images/hero (1).png'),
+        ogType: 'website'
+    }) %>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
+    
+    <style>
+        /* Base Dark Mode Setup */
+        .bg-dark-bg { background-color: #0F172A; }
+        .bg-dark-card { background-color: #1E293B; }
+        .text-rivix-orange { color: #FF6B00; }
+        .text-rivix-green { color: #22C55E; }
+        .text-rivix-blue { color: #2563EB; }
+        
+        body { padding-top: 72px; background-color: #0F172A; color: #E2E8F0; }
+        section { padding-top: 100px; padding-bottom: 100px; }
+        h1, h2, h3 { font-weight: 900; letter-spacing: -0.04em; color: #F8FAFC; }
+    </style>
+</head>
+<body class="bg-dark-bg font-sans antialiased">
+    
+    <%- include('partials/header') %>
+
+    <section class="py-24 bg-gray-900 border-b border-dark-card">
+        <div class="container mx-auto px-4 text-center">
+            <h1 class="text-5xl lg:text-7xl font-black mb-4 text-white" data-aos="fade-down">
+                Terms of Service
+            </h1>
+            <p class="text-xl text-gray-400 max-w-2xl mx-auto" data-aos="fade-down" data-aos-delay="100">
+                Last Updated: <%= new Date().toLocaleDateString() %>
+            </p>
+        </div>
+    </section>
+
+    <section class="py-20 bg-dark-bg">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto">
+                
+                <div class="bg-dark-card p-8 rounded-xl border border-gray-700 mb-6" data-aos="fade-up">
+                    <p class="text-gray-300 leading-relaxed text-lg">
+                        By accessing or using Rivix Servers ("Rivix", "we", "us", or "our"), you agree to be bound by these Terms of Service. If you do not agree, you may not use our services.
+                    </p>
+                </div>
+
+                <div class="bg-dark-card p-8 rounded-xl border border-gray-700 mb-6" data-aos="fade-up" data-aos-delay="100">
+                    <p class="text-gray-300 leading-relaxed">
+                        Rivix Servers provides game server hosting services on a best-effort basis. Services are provided "as is" and "as available" without warranties of any kind, express or implied.
+                    </p>
+                </div>
+
+                <div class="bg-dark-card p-8 rounded-xl border border-gray-700 mb-6" data-aos="fade-up" data-aos-delay="200">
+                    <p class="text-gray-300 leading-relaxed">
+                        You are solely responsible for all content, data, and activity that occurs on your server, including actions taken by users you allow access to. Rivix Servers does not monitor or moderate server content.
+                    </p>
+                </div>
+
+                <div class="bg-dark-card p-8 rounded-xl border border-gray-700 mb-6" data-aos="fade-up" data-aos-delay="300">
+                    <p class="text-gray-300 leading-relaxed">
+                        We do not guarantee uninterrupted service, specific performance levels, data retention, or uptime. Rivix Servers is not liable for downtime, data loss, corrupted files, service interruptions, or indirect or consequential damages.
+                    </p>
+                </div>
+
+                <div class="bg-dark-card p-8 rounded-xl border border-gray-700 mb-6" data-aos="fade-up" data-aos-delay="400">
+                    <p class="text-gray-300 leading-relaxed">
+                        We reserve the right to suspend, terminate, or limit services at our sole discretion for violations of these Terms, the Acceptable Use Policy, abuse of system resources, or actions that negatively impact our network or other customers.
+                    </p>
+                </div>
+
+                <div class="bg-dark-card p-8 rounded-xl border border-gray-700 mb-6" data-aos="fade-up" data-aos-delay="500">
+                    <p class="text-gray-300 leading-relaxed">
+                        Rivix Servers is not responsible for customer misconfiguration, deleted files, plugin or mod issues, or incompatibilities caused by software changes.
+                    </p>
+                </div>
+
+                <div class="bg-dark-card p-8 rounded-xl border border-gray-700 mb-6" data-aos="fade-up" data-aos-delay="600">
+                    <p class="text-gray-300 leading-relaxed">
+                        Prices, features, service limits, and policies may change at any time. Continued use of the service constitutes acceptance of any updated terms.
+                    </p>
+                </div>
+
+                <div class="bg-dark-card p-8 rounded-xl border border-gray-700" data-aos="fade-up" data-aos-delay="700">
+                    <p class="text-gray-300 leading-relaxed">
+                        These Terms are governed by applicable laws in the United States. Any disputes must be resolved through binding arbitration or appropriate legal venues as permitted by law.
+                    </p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <%- include('partials/footer') %>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({ duration: 800, once: true });
+    </script>
+</body>
+</html>

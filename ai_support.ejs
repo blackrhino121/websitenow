@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title || 'AI Support Assistant - RyzenBot | Rivix Servers' %></title>
+    <meta name="description" content="Get instant help from RyzenBot, Rivix's AI support assistant. Available 24/7 for quick answers about server hosting, billing, and technical support.">
+    <link rel="icon" type="image/x-icon" href="<%= images.logo %>">
+    
+    <!-- Preconnect for faster resource loading -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdn.tailwindcss.com">
+    
+    <!-- Preload critical resources -->
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" as="style">
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" as="style">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* Base Dark Mode Setup */
+        .bg-dark-bg { background-color: #0F172A; }
+        .bg-dark-card { background-color: #1E293B; }
+        .text-rivix-orange { color: #FF6B00; }
+        .text-rivix-green { color: #22C55E; }
+        .text-rivix-blue { color: #2563EB; }
+        
+        body { background-color: #0F172A; color: #E2E8F0; font-family: 'Inter', sans-serif; }
+        
+        /* Custom Scrollbar */
+        .chat-scrollbar::-webkit-scrollbar {
+            width: 8px;
+        }
+        .chat-scrollbar::-webkit-scrollbar-track {
+            background: #1E293B;
+            border-radius: 4px;
+        }
+        .chat-scrollbar::-webkit-scrollbar-thumb {
+            background: #FF6B00;
+            border-radius: 4px;
+        }
+        .chat-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #FF8C42;
+        }
+        
+        /* Chat Message Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .chat-message {
+            animation: fadeIn 0.3s ease-out;
+        }
+        
+        /* Typing Indicator */
+        .typing-indicator {
+            display: inline-flex;
+            gap: 4px;
+        }
+        .typing-indicator span {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: #FF6B00;
+            animation: typing 1.4s infinite;
+        }
+        .typing-indicator span:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+        .typing-indicator span:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+        @keyframes typing {
+            0%, 60%, 100% { transform: translateY(0); opacity: 0.7; }
+            30% { transform: translateY(-10px); opacity: 1; }
+        }
+    </style>
+</head>
+<body class="bg-dark-bg font-sans antialiased">
+    <!-- Skip to main content link for accessibility -->
+    <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[100] focus:px-4 focus:py-2 focus:bg-rivix-orange focus:text-white focus:rounded-lg focus:font-bold">
+        Skip to main content
+    </a>
+
+    <main id="main-content" class="flex flex-col h-screen">
+        <!-- Header -->
+        <header class="bg-dark-card border-b border-gray-700 px-6 py-4">
+            <div class="container mx-auto flex items-center justify-between">
+                <div class="flex items-center gap-4">
+                    <a href="/" class="flex items-center gap-2 hover:opacity-80 transition-opacity">
+                        <img src="<%= images.logo %>" alt="Rivix Servers Logo" class="h-8 w-auto" width="150" height="40" loading="eager" fetchpriority="high" onerror="this.onerror=null; this.style.display='none';">
+                    </a>
+                    <div>
+                        <h1 class="text-xl font-black text-white">
+                            <span class="text-rivix-orange">RyzenBot</span> AI Assistant
+                        </h1>
+                        <p class="text-sm text-gray-400">Available 24/7 • Instant Support</p>
+                    </div>
+                </div>
+                <div class="flex items-center gap-4">
+                    <div class="flex items-center gap-2 px-3 py-1.5 bg-rivix-green/20 border border-rivix-green/50 rounded-full">
+                        <div class="w-2 h-2 bg-rivix-green rounded-full animate-pulse"></div>
+                        <span class="text-rivix-green text-sm font-semibold">Online</span>
+                    </div>
+                    <a href="/support" class="px-4 py-2 text-gray-300 hover:text-white transition-colors">
+                        <i class="fas fa-headset mr-2"></i>
+                        Human Support
+                    </a>
+                </div>
+            </div>
+        </header>
+
+        <!-- Chat Container -->
+        <div class="flex-1 flex flex-col overflow-hidden">
+            <!-- Chat Messages Area -->
+            <div id="chat-messages" class="flex-1 overflow-y-auto chat-scrollbar px-6 py-6 space-y-4">
+                <!-- Welcome Message -->
+                <div class="chat-message flex items-start gap-3">
+                    <div class="w-10 h-10 rounded-full bg-rivix-orange/20 flex items-center justify-center flex-shrink-0">
+                        <i class="fas fa-robot text-rivix-orange text-xl"></i>
+                    </div>
+                    <div class="flex-1">
+                        <div class="bg-dark-card border border-gray-700 rounded-2xl rounded-tl-none px-5 py-4">
+                            <div class="font-bold text-white mb-1">RyzenBot</div>
+                            <p class="text-gray-300 leading-relaxed">
+                                Hi! I'm <strong class="text-rivix-orange">RyzenBot</strong>, your AI support assistant. I'm here 24/7 to help with:
+                            </p>
+                            <ul class="mt-3 space-y-2 text-gray-300">
+                                <li class="flex items-start gap-2">
+                                    <i class="fas fa-check text-rivix-green mt-1"></i>
+                                    <span>Server setup and configuration questions</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <i class="fas fa-check text-rivix-green mt-1"></i>
+                                    <span>Billing and account information</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <i class="fas fa-check text-rivix-green mt-1"></i>
+                                    <span>Technical troubleshooting</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <i class="fas fa-check text-rivix-green mt-1"></i>
+                                    <span>General hosting questions</span>
+                                </li>
+                            </ul>
+                            <p class="mt-3 text-gray-400 text-sm">
+                                <i class="fas fa-info-circle mr-1"></i>
+                                For complex issues, I can escalate to our human support team.
+                            </p>
+                        </div>
+                        <div class="text-xs text-gray-500 mt-1 ml-2">Just now</div>
+                    </div>
+                </div>
+
+                <!-- Quick Action Buttons -->
+                <div class="chat-message flex items-start gap-3">
+                    <div class="w-10 h-10"></div>
+                    <div class="flex-1">
+                        <p class="text-sm text-gray-400 mb-2">Quick questions:</p>
+                        <div class="flex flex-wrap gap-2">
+                            <button class="quick-action-btn px-4 py-2 bg-dark-card border border-gray-700 rounded-lg text-sm text-gray-300 hover:border-rivix-orange hover:text-rivix-orange transition-all">
+                                <i class="fas fa-server mr-2"></i>How do I start my server?
+                            </button>
+                            <button class="quick-action-btn px-4 py-2 bg-dark-card border border-gray-700 rounded-lg text-sm text-gray-300 hover:border-rivix-orange hover:text-rivix-orange transition-all">
+                                <i class="fas fa-dollar-sign mr-2"></i>Pricing information
+                            </button>
+                            <button class="quick-action-btn px-4 py-2 bg-dark-card border border-gray-700 rounded-lg text-sm text-gray-300 hover:border-rivix-orange hover:text-rivix-orange transition-all">
+                                <i class="fas fa-wrench mr-2"></i>Technical support
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sample Conversation -->
+                <div class="chat-message flex items-end gap-3 flex-row-reverse">
+                    <div class="w-10 h-10 rounded-full bg-rivix-blue/20 flex items-center justify-center flex-shrink-0">
+                        <i class="fas fa-user text-rivix-blue text-xl"></i>
+                    </div>
+                    <div class="flex-1 flex justify-end">
+                        <div class="bg-rivix-orange rounded-2xl rounded-tr-none px-5 py-4 max-w-[70%]">
+                            <p class="text-white">What makes Ryzen 7 CPUs better for hosting?</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="chat-message flex items-start gap-3">
+                    <div class="w-10 h-10 rounded-full bg-rivix-orange/20 flex items-center justify-center flex-shrink-0">
+                        <i class="fas fa-robot text-rivix-orange text-xl"></i>
+                    </div>
+                    <div class="flex-1">
+                        <div class="bg-dark-card border border-gray-700 rounded-2xl rounded-tl-none px-5 py-4">
+                            <div class="font-bold text-white mb-1">RyzenBot</div>
+                            <p class="text-gray-300 leading-relaxed">
+                                Great question! AMD Ryzen 7 CPUs are exceptional for Minecraft server hosting because:
+                            </p>
+                            <ul class="mt-3 space-y-2 text-gray-300">
+                                <li class="flex items-start gap-2">
+                                    <i class="fas fa-microchip text-rivix-orange mt-1"></i>
+                                    <span><strong>Superior single-core performance:</strong> Minecraft relies heavily on single-threaded processing, and Ryzen 7 excels here.</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <i class="fas fa-shield-alt text-rivix-green mt-1"></i>
+                                    <span><strong>No overselling:</strong> Every server gets a dedicated Ryzen 7 CPU core - we never share resources.</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <i class="fas fa-tachometer-alt text-rivix-blue mt-1"></i>
+                                    <span><strong>Higher TPS:</strong> Better tick rate consistency means smoother gameplay with zero lag spikes.</span>
+                                </li>
+                            </ul>
+                            <p class="mt-3 text-gray-400 text-sm">
+                                Would you like more details about our hardware specifications or server configurations?
+                            </p>
+                        </div>
+                        <div class="text-xs text-gray-500 mt-1 ml-2">2 minutes ago</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Chat Input Area -->
+            <div class="bg-dark-card border-t border-gray-700 px-6 py-4">
+                <form id="chat-form" class="container mx-auto max-w-4xl">
+                    <div class="flex items-end gap-3">
+                        <div class="flex-1 relative">
+                            <textarea 
+                                id="chat-input" 
+                                rows="1"
+                                placeholder="Ask RyzenBot anything about hosting, billing, or support..."
+                                class="w-full bg-dark-bg border border-gray-600 rounded-xl px-5 py-3 pr-12 text-white placeholder-gray-500 resize-none focus:outline-none focus:border-rivix-orange transition-colors"
+                                style="min-height: 48px; max-height: 120px;"
+                            ></textarea>
+                            <button 
+                                type="button" 
+                                id="send-btn"
+                                class="absolute right-3 bottom-3 w-10 h-10 bg-rivix-orange hover:bg-orange-600 rounded-lg flex items-center justify-center text-white transition-colors"
+                            >
+                                <i class="fas fa-paper-plane"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="flex items-center justify-between mt-2 text-xs text-gray-500">
+                        <div class="flex items-center gap-4">
+                            <span><i class="fas fa-keyboard mr-1"></i>Press Enter to send, Shift+Enter for new line</span>
+                        </div>
+                        <a href="/contact" class="hover:text-rivix-orange transition-colors">
+                            <i class="fas fa-external-link-alt mr-1"></i>Need human support?
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <script src="/js/main.js"></script>
+    <script>
+        // Chat interface functionality
+        const chatInput = document.getElementById('chat-input');
+        const chatForm = document.getElementById('chat-form');
+        const chatMessages = document.getElementById('chat-messages');
+        const sendBtn = document.getElementById('send-btn');
+
+        // Auto-resize textarea
+        chatInput.addEventListener('input', function() {
+            this.style.height = 'auto';
+            this.style.height = Math.min(this.scrollHeight, 120) + 'px';
+        });
+
+        // Handle form submission
+        chatForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            sendMessage();
+        });
+
+        sendBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            sendMessage();
+        });
+
+        // Quick action button handlers
+        document.querySelectorAll('.quick-action-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const text = this.textContent.trim();
+                chatInput.value = text.replace(/^[^\s]+\s+/, ''); // Remove icon text
+                chatInput.focus();
+                chatInput.style.height = 'auto';
+                chatInput.style.height = Math.min(chatInput.scrollHeight, 120) + 'px';
+            });
+        });
+
+        function sendMessage() {
+            const message = chatInput.value.trim();
+            if (!message) return;
+
+            // Add user message to chat
+            addMessage(message, 'user');
+            chatInput.value = '';
+            chatInput.style.height = 'auto';
+
+            // Scroll to bottom
+            scrollToBottom();
+
+            // Simulate AI response (placeholder)
+            setTimeout(() => {
+                showTypingIndicator();
+                setTimeout(() => {
+                    hideTypingIndicator();
+                    addMessage('Thank you for your message! This is a placeholder interface. In production, this would connect to an AI service like OpenAI or a custom model.', 'bot');
+                }, 1500);
+            }, 500);
+        }
+
+        function addMessage(text, sender) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'chat-message flex items-' + (sender === 'user' ? 'end' : 'start') + ' gap-3' + (sender === 'user' ? ' flex-row-reverse' : '');
+
+            const avatarDiv = document.createElement('div');
+            avatarDiv.className = 'w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 ' + 
+                (sender === 'user' ? 'bg-rivix-blue/20' : 'bg-rivix-orange/20');
+            
+            const icon = document.createElement('i');
+            icon.className = 'fas ' + (sender === 'user' ? 'fa-user text-rivix-blue' : 'fa-robot text-rivix-orange') + ' text-xl';
+            avatarDiv.appendChild(icon);
+
+            const contentDiv = document.createElement('div');
+            contentDiv.className = 'flex-1' + (sender === 'user' ? ' flex justify-end' : '');
+
+            const messageBubble = document.createElement('div');
+            messageBubble.className = sender === 'user' 
+                ? 'bg-rivix-orange rounded-2xl rounded-tr-none px-5 py-4 max-w-[70%]'
+                : 'bg-dark-card border border-gray-700 rounded-2xl rounded-tl-none px-5 py-4';
+
+            if (sender === 'bot') {
+                const nameDiv = document.createElement('div');
+                nameDiv.className = 'font-bold text-white mb-1';
+                nameDiv.textContent = 'RyzenBot';
+                messageBubble.appendChild(nameDiv);
+            }
+
+            const textDiv = document.createElement('p');
+            textDiv.className = sender === 'user' ? 'text-white' : 'text-gray-300 leading-relaxed';
+            textDiv.textContent = text;
+            messageBubble.appendChild(textDiv);
+
+            if (sender === 'bot') {
+                const timeDiv = document.createElement('div');
+                timeDiv.className = 'text-xs text-gray-500 mt-1 ml-2';
+                timeDiv.textContent = 'Just now';
+                contentDiv.appendChild(timeDiv);
+            }
+
+            contentDiv.insertBefore(messageBubble, sender === 'bot' ? contentDiv.firstChild : null);
+            messageDiv.appendChild(avatarDiv);
+            messageDiv.appendChild(contentDiv);
+
+            chatMessages.appendChild(messageDiv);
+            scrollToBottom();
+        }
+
+        function showTypingIndicator() {
+            const typingDiv = document.createElement('div');
+            typingDiv.id = 'typing-indicator';
+            typingDiv.className = 'chat-message flex items-start gap-3';
+            
+            const avatarDiv = document.createElement('div');
+            avatarDiv.className = 'w-10 h-10 rounded-full bg-rivix-orange/20 flex items-center justify-center flex-shrink-0';
+            const icon = document.createElement('i');
+            icon.className = 'fas fa-robot text-rivix-orange text-xl';
+            avatarDiv.appendChild(icon);
+
+            const bubbleDiv = document.createElement('div');
+            bubbleDiv.className = 'bg-dark-card border border-gray-700 rounded-2xl rounded-tl-none px-5 py-4';
+            const typingIndicator = document.createElement('div');
+            typingIndicator.className = 'typing-indicator';
+            for (let i = 0; i < 3; i++) {
+                const span = document.createElement('span');
+                typingIndicator.appendChild(span);
+            }
+            bubbleDiv.appendChild(typingIndicator);
+
+            typingDiv.appendChild(avatarDiv);
+            typingDiv.appendChild(bubbleDiv);
+            chatMessages.appendChild(typingDiv);
+            scrollToBottom();
+        }
+
+        function hideTypingIndicator() {
+            const indicator = document.getElementById('typing-indicator');
+            if (indicator) indicator.remove();
+        }
+
+        function scrollToBottom() {
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        // Handle Enter key (send) vs Shift+Enter (new line)
+        chatInput.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                sendMessage();
+            }
+        });
+
+        // Focus input on load
+        chatInput.focus();
+    </script>
+</body>
+</html>
+

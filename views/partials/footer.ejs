@@ -1,0 +1,65 @@
+<!-- Cookie Consent Banner (GDPR/CCPA Compliance) -->
+<div id="cookie-consent-banner" class="hidden fixed bottom-0 left-0 right-0 z-50 bg-dark-card border-t border-gray-700 shadow-2xl p-4 md:p-6" style="transform: translateY(100%); opacity: 0; transition: transform 0.3s ease-out, opacity 0.3s ease-out;">
+    <div class="container mx-auto px-4">
+        <div class="flex flex-col md:flex-row items-center justify-between gap-4">
+            <div class="flex-1">
+                <p class="text-white text-sm md:text-base mb-2 md:mb-0">
+                    <i class="fas fa-cookie-bite text-rivix-orange mr-2"></i>
+                    We use cookies to enhance your browsing experience and analyze site traffic. By clicking "Accept", you consent to our use of cookies. 
+                    <a href="/privacy" class="text-rivix-blue hover:text-rivix-orange underline ml-1">Learn more</a>
+                </p>
+            </div>
+            <div class="flex items-center gap-3">
+                <button id="cookie-consent-accept" class="px-6 py-3 bg-rivix-green text-white rounded-lg font-bold hover:bg-green-600 transition-all duration-300 shadow-lg hover:shadow-xl">
+                    Accept
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer class="bg-gray-900 border-t border-gray-800 py-12">
+    <div class="container mx-auto px-4">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+            <div>
+                <div class="mb-4">
+                    <img src="<%= images.logo %>" alt="Rivix Servers Logo" class="h-8 w-auto mb-3" width="120" height="32" loading="lazy" onerror="this.onerror=null; this.style.display='none';">
+                </div>
+                <h3 class="text-xl font-black text-white mb-4">
+                    <span class="text-rivix-orange">Rivix</span> Servers
+                </h3>
+                <p class="text-gray-400 text-sm mb-4">Minecraft hosting powered by dedicated Ryzen 7 CPUs.</p>
+                <div class="flex items-center gap-2 text-sm text-gray-500">
+                    <i class="fas fa-rocket text-rivix-orange"></i>
+                    <span>Premium Minecraft Hosting</span>
+                    <span class="mx-2">•</span>
+                    <span>No Overselling</span>
+                </div>
+            </div>
+        </div>
+        <div class="border-t border-gray-800 pt-8">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-4">
+                <p class="text-gray-400 text-sm text-center md:text-left">
+                    &copy; <%= new Date().getFullYear() %> <%= company.name %>. All rights reserved.
+                </p>
+                <div class="flex flex-col md:flex-row items-center gap-4 text-sm">
+                    <a href="/support" class="text-gray-400 hover:text-rivix-orange transition-colors">Support</a>
+                    <span class="text-gray-600">•</span>
+                    <a href="<%= company.billingUrl %>" target="_blank" class="text-gray-400 hover:text-rivix-orange transition-colors">Client Area</a>
+                    <span class="text-gray-600">•</span>
+                    <a href="/terms" class="text-gray-400 hover:text-rivix-orange transition-colors">Terms of Service</a>
+                    <span class="text-gray-600">•</span>
+                    <a href="/privacy" class="text-gray-400 hover:text-rivix-orange transition-colors">Privacy Policy</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- Floating Support Tickets Button - Always Visible -->
+<a href="<%= company.ticketUrl %>" target="_blank" rel="noopener noreferrer" class="fixed bottom-6 right-6 z-40 bg-rivix-orange text-white px-6 py-4 rounded-full font-bold shadow-2xl hover:bg-orange-600 transition-all duration-300 hover:scale-110 flex items-center gap-3 group animate-pulse hover:animate-none" aria-label="Open Support Tickets">
+    <i class="fas fa-ticket-alt text-xl"></i>
+    <span class="hidden sm:inline">Support Tickets</span>
+    <span class="sm:hidden">Tickets</span>
+    <i class="fas fa-external-link-alt text-sm group-hover:translate-x-1 transition-transform"></i>
+</a>

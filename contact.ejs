@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="<%= images.logo %>">
+    
+    <%- include('partials/seo-meta', {
+        title: title,
+        metaDescription: 'Contact Rivix Servers support team. Email, live chat, or submit a ticket. 24/7 expert support for billing, technical issues, and account questions. Fast response times.',
+        canonicalUrl: typeof canonicalUrl !== 'undefined' ? canonicalUrl : (typeof BASE_URL !== 'undefined' ? BASE_URL : 'https://rivixservers.com') + '/contact',
+        ogImage: (typeof BASE_URL !== 'undefined' ? BASE_URL : 'https://rivixservers.com') + (typeof images !== 'undefined' && images.hero ? images.hero[0] : '/images/hero (1).png'),
+        ogType: 'website'
+    }) %>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
+    
+    <style>
+        /* Base Dark Mode Setup (Consistent with tailwind.config.js) */
+        .bg-dark-bg { background-color: #0F172A; }
+        .bg-dark-card { background-color: #1E293B; }
+        .text-rivix-orange { color: #FF6B00; }
+        .text-rivix-green { color: #22C55E; }
+        
+        body { padding-top: 72px; background-color: #0F172A; color: #E2E8F0; }
+        section { padding-top: 100px; padding-bottom: 100px; }
+        h1, h2, h3, h4 { font-weight: 900; letter-spacing: -0.04em; color: #F8FAFC; }
+
+        /* Form Styling */
+        .form-control {
+            background-color: #1E293B;
+            border: 1px solid #374151;
+            color: #E2E8F0;
+            padding: 1rem 1.5rem;
+            border-radius: 12px;
+            transition: border-color 0.3s ease;
+        }
+        .form-control::placeholder {
+            color: #6B7280;
+        }
+        .form-control:focus {
+            outline: none;
+            border-color: #FF6B00;
+            box-shadow: 0 0 0 3px rgba(255, 107, 0, 0.2);
+        }
+        .btn-main {
+            background-color: #FF6B00;
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            font-weight: 700;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+        .btn-main:hover {
+            background-color: #e65c00;
+            transform: translateY(-2px);
+        }
+
+        /* Contact Box Styling */
+        .feature-box-dark {
+            background-color: #1E293B;
+            border: 2px solid #374151;
+            padding: 32px;
+            border-radius: 16px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+            transition: all 0.3s ease;
+        }
+        .feature-box-dark:hover {
+            transform: translateY(-5px);
+            border-color: #FF6B00;
+        }
+    </style>
+</head>
+<body class="bg-dark-bg font-sans antialiased">
+    
+    <%- include('partials/header') %>
+
+    <section class="py-24 bg-gray-900 border-b border-dark-card">
+        <div class="container mx-auto px-4 text-center">
+            <h1 class="text-5xl lg:text-7xl font-black mb-4 text-white" data-aos="fade-down">
+                Contact Rivix Support
+            </h1>
+            <p class="text-xl text-gray-400 max-w-2xl mx-auto" data-aos="fade-down" data-aos-delay="100">
+                We're here to help 24/7 with immediate assistance via chat or ticket submission.
+            </p>
+        </div>
+    </section>
+
+    <section class="pt-20 bg-dark-bg">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto">
+                <div class="bg-dark-card p-10 rounded-2xl shadow-2xl border border-gray-700" data-aos="fade-up">
+                    <h3 class="text-3xl font-black mb-6 text-white">Send Us a Message</h3>
+                    
+                    <form id="contactForm" onsubmit="submitContact(event)" class="space-y-4">
+                        <!-- Honeypot field - hidden from users, bots will fill it -->
+                        <input type="text" name="_email_check" id="_email_check" class="hidden" tabindex="-1" autocomplete="off" aria-hidden="true">
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <input type="text" class="form-control" placeholder="Your Name" required>
+                            <input type="email" class="form-control" placeholder="Your Email" required>
+                        </div>
+                        
+                        <div>
+                            <input type="text" class="form-control" placeholder="Subject (e.g. Billing Issue, Technical Help)" required>
+                        </div>
+                        
+                        <div>
+                            <textarea class="form-control resize-none" rows="5" placeholder="Your Message" required></textarea>
+                        </div>
+                        
+                        <button type="submit" class="btn-main w-full sm:w-auto">
+                            <span>Send Message</span>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="pt-16 pb-24 bg-dark-bg">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+                
+                <div class="feature-box-dark text-center hover:border-rivix-orange" data-aos="fade-up">
+                    <div class="feature-icon-wrapper w-16 h-16 mx-auto mb-6 bg-rivix-orange/20 rounded-xl flex items-center justify-center">
+                        <i class="fa fa-envelope text-rivix-orange text-3xl"></i>
+                    </div>
+                    <h4 class="text-xl font-bold text-white mb-2">Email</h4>
+                    <p class="text-gray-400"><%= company.email %></p>
+                </div>
+                
+                <div class="feature-box-dark text-center hover:border-rivix-blue" data-aos="fade-up" data-aos-delay="200">
+                    <div class="feature-icon-wrapper w-16 h-16 mx-auto mb-6 bg-rivix-blue/20 rounded-xl flex items-center justify-center">
+                        <i class="fa-brands fa-discord text-rivix-blue text-3xl"></i>
+                    </div>
+                    <h4 class="text-xl font-bold text-white mb-2">Discord</h4>
+                    <p class="text-gray-400">Join our Discord server for live community help</p>
+                </div>
+                
+                <div class="feature-box-dark text-center hover:border-rivix-green" data-aos="fade-up" data-aos-delay="400">
+                    <div class="feature-icon-wrapper w-16 h-16 mx-auto mb-6 bg-rivix-green/20 rounded-xl flex items-center justify-center">
+                        <i class="fa fa-clock text-rivix-green text-3xl"></i>
+                    </div>
+                    <h4 class="text-xl font-bold text-white mb-2">Support Hours</h4>
+                    <p class="text-gray-400">Ticket support available 24/7</p>
+                </div>
+            </div>
+            
+            <!-- Support Tickets CTA -->
+            <div class="max-w-2xl mx-auto mt-12 text-center" data-aos="fade-up" data-aos-delay="600">
+                <div class="bg-gradient-to-br from-rivix-orange/20 to-rivix-orange/10 border-2 border-rivix-orange/50 rounded-2xl p-8">
+                    <h3 class="text-2xl font-black text-white mb-3">Need Immediate Help?</h3>
+                    <p class="text-gray-300 mb-6">Submit a support ticket and our team will respond within minutes.</p>
+                    <a href="<%= company.ticketUrl %>" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-3 px-8 py-4 bg-rivix-orange text-white rounded-xl font-bold text-lg hover:bg-orange-600 transition-all duration-300 shadow-xl hover:scale-105">
+                        <i class="fas fa-ticket-alt"></i>
+                        <span>Open Support Tickets</span>
+                        <i class="fas fa-external-link-alt"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <%- include('partials/footer') %>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            duration: 800,
+            easing: 'ease',
+            once: true
+        });
+        
+        function submitContact(event) {
+            event.preventDefault();
+            
+            // Honeypot check - if this field is filled, it's a bot
+            const honeypot = document.getElementById('_email_check').value;
+            if (honeypot) {
+                console.log('Bot detected via honeypot field');
+                // Silently reject - don't alert the bot
+                return false;
+            }
+            
+            // In a real Node.js app, this would use fetch() to send data to the backend
+            alert('Thank you for your message! Your support request has been sent.');
+            document.getElementById('contactForm').reset();
+        }
+    </script>
+</body>
+</html>

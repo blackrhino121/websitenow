@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="<%= images.logo %>">
+    
+    <%- include('partials/seo-meta', {
+        title: title,
+        metaDescription: 'Acceptable Use Policy for Rivix Servers. Learn what activities are prohibited on our hosting services.',
+        canonicalUrl: typeof canonicalUrl !== 'undefined' ? canonicalUrl : (typeof BASE_URL !== 'undefined' ? BASE_URL : 'https://rivixservers.com') + '/aup',
+        ogImage: (typeof BASE_URL !== 'undefined' ? BASE_URL : 'https://rivixservers.com') + (typeof images !== 'undefined' && images.hero ? images.hero[0] : '/images/hero (1).png'),
+        ogType: 'website'
+    }) %>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
+    
+    <style>
+        /* Base Dark Mode Setup */
+        .bg-dark-bg { background-color: #0F172A; }
+        .bg-dark-card { background-color: #1E293B; }
+        .text-rivix-orange { color: #FF6B00; }
+        .text-rivix-green { color: #22C55E; }
+        .text-rivix-blue { color: #2563EB; }
+        
+        body { padding-top: 72px; background-color: #0F172A; color: #E2E8F0; }
+        section { padding-top: 100px; padding-bottom: 100px; }
+        h1, h2, h3 { font-weight: 900; letter-spacing: -0.04em; color: #F8FAFC; }
+    </style>
+</head>
+<body class="bg-dark-bg font-sans antialiased">
+    
+    <%- include('partials/header') %>
+
+    <section class="py-24 bg-gray-900 border-b border-dark-card">
+        <div class="container mx-auto px-4 text-center">
+            <h1 class="text-5xl lg:text-7xl font-black mb-4 text-white" data-aos="fade-down">
+                Acceptable Use Policy
+            </h1>
+            <p class="text-xl text-gray-400 max-w-2xl mx-auto" data-aos="fade-down" data-aos-delay="100">
+                Last Updated: <%= new Date().toLocaleDateString() %>
+            </p>
+        </div>
+    </section>
+
+    <section class="py-20 bg-dark-bg">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto">
+                
+                <div class="bg-gradient-to-br from-rivix-orange/20 to-rivix-orange/10 border-2 border-rivix-orange/50 p-8 rounded-xl mb-8" data-aos="fade-up">
+                    <div class="flex items-center gap-4 mb-4">
+                        <div class="w-16 h-16 bg-rivix-orange rounded-xl flex items-center justify-center">
+                            <i class="fas fa-shield-alt text-white text-2xl"></i>
+                        </div>
+                        <h2 class="text-3xl font-black text-white">Prohibited Activities</h2>
+                    </div>
+                    <p class="text-gray-300 leading-relaxed text-lg">
+                        Rivix Servers may not be used for illegal, harmful, abusive, or malicious activities.
+                    </p>
+                </div>
+
+                <div class="bg-dark-card p-8 rounded-xl border border-gray-700 mb-6" data-aos="fade-up" data-aos-delay="100">
+                    <h3 class="text-2xl font-bold text-white mb-4 flex items-center gap-2">
+                        <i class="fas fa-exclamation-triangle text-rivix-orange"></i>
+                        Prohibited Uses
+                    </h3>
+                    <p class="text-gray-300 leading-relaxed mb-4">
+                        Prohibited uses include, but are not limited to:
+                    </p>
+                    <ul class="list-disc list-inside text-gray-300 space-y-2 ml-4">
+                        <li>Malware, phishing, or malicious software</li>
+                        <li>Distributed denial-of-service (DDoS) attacks or network abuse</li>
+                        <li>Copyright infringement or piracy</li>
+                        <li>Harassment, hate speech, threats, or illegal content</li>
+                        <li>Exploitation of software vulnerabilities</li>
+                        <li>Excessive resource usage that degrades service for others</li>
+                    </ul>
+                </div>
+
+                <div class="bg-dark-card p-8 rounded-xl border border-gray-700 mb-6" data-aos="fade-up" data-aos-delay="200">
+                    <h3 class="text-2xl font-bold text-white mb-4 flex items-center gap-2">
+                        <i class="fas fa-users text-rivix-blue"></i>
+                        Customer Responsibility
+                    </h3>
+                    <p class="text-gray-300 leading-relaxed">
+                        You are responsible for ensuring that all users of your server comply with this policy.
+                    </p>
+                </div>
+
+                <div class="bg-gradient-to-br from-red-900/20 to-red-800/10 border-2 border-red-500/50 p-8 rounded-xl" data-aos="fade-up" data-aos-delay="300">
+                    <h3 class="text-2xl font-bold text-white mb-4 flex items-center gap-2">
+                        <i class="fas fa-ban text-red-400"></i>
+                        Consequences of Violations
+                    </h3>
+                    <p class="text-gray-300 leading-relaxed text-lg">
+                        Violations may result in immediate suspension or termination of services without refund and without prior notice.
+                    </p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <%- include('partials/footer') %>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({ duration: 800, once: true });
+    </script>
+</body>
+</html>

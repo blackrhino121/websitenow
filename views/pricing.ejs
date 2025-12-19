@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="<%= images.logo %>">
+    
+    <% 
+        // Compute values safely before passing to include
+        const pricingCanonicalUrl = typeof canonicalUrl !== 'undefined' ? canonicalUrl : (typeof BASE_URL !== 'undefined' ? BASE_URL : 'https://rivixservers.com') + '/pricing' + (typeof serverType !== 'undefined' && serverType && serverType !== 'java' ? '?type=' + serverType : '');
+        const pricingOgImage = (typeof BASE_URL !== 'undefined' ? BASE_URL : 'https://rivixservers.com') + (typeof images !== 'undefined' && images.hero ? images.hero[0] : '/images/hero (1).png');
+        const pricingMetaDesc = typeof serverType !== 'undefined' && serverType === 'java' ? 'Minecraft Java server hosting plans starting at $9.99/month. Dedicated AMD Ryzen 7 CPUs, zero lag, 24/7 support. Perfect for modpacks, plugins, and large servers.' : typeof serverType !== 'undefined' && serverType === 'bedrock' ? 'Minecraft Bedrock server hosting plans starting at $9.99/month. Dedicated AMD Ryzen 7 CPUs, cross-platform support, 24/7 expert support.' : 'Premium server hosting with dedicated Ryzen 7 CPUs. Transparent pricing, no overselling, 24/7 support.';
+    %>
+    <%- include('partials/seo-meta', {
+        title: title,
+        metaDescription: pricingMetaDesc,
+        canonicalUrl: pricingCanonicalUrl,
+        ogImage: pricingOgImage,
+        ogType: 'website'
+    }) %>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
+    
+    <style>
+        /* Base Dark Mode Setup (Consistent with tailwind.config.js) */
+        .bg-dark-bg { background-color: #0F172A; }
+        .bg-dark-card { background-color: #1E293B; }
+        .text-rivix-orange, .text-rivix-primary { color: #06B6D4; }
+        .text-rivix-green, .text-rivix-secondary { color: #10B981; }
+        .text-rivix-blue, .text-rivix-accent { color: #8B5CF6; }
+        .text-rivix-highlight { color: #22D3EE; }
+
+        /* Brand background/border helpers (for CDN Tailwind setup) */
+        .bg-rivix-orange, .bg-rivix-primary { background-color: #06B6D4; }
+        .border-rivix-orange, .border-rivix-primary { border-color: #06B6D4; }
+        .hover\:border-rivix-orange:hover, .hover\:border-rivix-primary:hover { border-color: #06B6D4; }
+        .bg-rivix-green, .bg-rivix-secondary { background-color: #10B981; }
+        .border-rivix-green, .border-rivix-secondary { border-color: #10B981; }
+        .bg-rivix-blue, .bg-rivix-accent { background-color: #8B5CF6; }
+        .border-rivix-blue, .border-rivix-accent { border-color: #8B5CF6; }
+        
+        body { padding-top: 72px; background-color: #0F172A; color: #E2E8F0; }
+        section { padding-top: 100px; padding-bottom: 100px; }
+        h1, h2, h3 { font-weight: 900; letter-spacing: -0.04em; color: #F8FAFC; }
+
+        /* Pricing Card Styling */
+        .pricing-card-dark {
+            background-color: #1E293B;
+            border: 2px solid #374151;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .pricing-card-dark:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 30px rgba(6, 182, 212, 0.2);
+        }
+        .price-display {
+            font-size: 3.5rem;
+            font-weight: 900;
+            line-height: 1;
+            color: #F8FAFC; 
+        }
+        .btn-cta { background-color: #06B6D4; box-shadow: 0 10px 30px rgba(6, 182, 212, 0.4); }
+        .btn-cta:hover { background-color: #0891b2; }
+    </style>
+</head>
+<body class="bg-dark-bg font-sans antialiased">
+    
+    <%- include('partials/header') %>
+
+    <section class="py-20 lg:py-32 bg-gray-900 border-b border-dark-card">
+        <div class="container mx-auto px-4 relative z-10">
+            <div class="max-w-4xl mx-auto text-center">
+                
+                <h1 class="text-5xl md:text-6xl lg:text-7xl font-black mb-6 text-white" data-aos="fade-up">
+                    <span class="text-rivix-orange"><%= 
+                        serverType === 'java' ? 'Java' : 
+                        serverType === 'bedrock' ? 'Bedrock' : 'Minecraft'
+                    %></span> Server Plans
+                </h1>
+                
+                <p class="text-xl md:text-2xl text-gray-300 mb-6 max-w-3xl mx-auto" data-aos="fade-up" data-aos-delay="100">
+                    Every server gets a <strong class="text-rivix-orange">dedicated AMD Ryzen 7 CPU</strong>. No overselling. No shared resources. Choose the plan that fits your community size.
+                </p>
+                <div class="flex items-center justify-center gap-4 text-sm text-gray-400 mb-8" data-aos="fade-up" data-aos-delay="150">
+                    <div class="flex items-center gap-2">
+                        <i class="fas fa-check-circle text-rivix-green"></i>
+                        <span>Instant setup</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <i class="fas fa-check-circle text-rivix-green"></i>
+                        <span>No hidden fees</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <i class="fas fa-check-circle text-rivix-green"></i>
+                        <span>Cancel anytime</span>
+                    </div>
+                </div>
+                
+                <!-- Tab Navigation - More Prominent -->
+                <div class="bg-dark-card/80 backdrop-blur-sm border-2 border-gray-700 rounded-2xl p-4 mb-12" data-aos="fade-up" data-aos-delay="200">
+                    <div class="flex flex-wrap items-center justify-center gap-4">
+                        <a href="/pricing?type=java" class="px-8 py-4 rounded-xl font-bold text-lg transition-all duration-300 <%= serverType === 'java' ? 'bg-rivix-orange text-white shadow-xl scale-105' : 'bg-gray-800 text-gray-300 border-2 border-gray-600 hover:border-rivix-orange hover:bg-gray-700' %>">
+                            <i class="fas fa-cube mr-2"></i>
+                            Minecraft Java
+                        </a>
+                        <a href="/pricing?type=bedrock" class="px-8 py-4 rounded-xl font-bold text-lg transition-all duration-300 <%= serverType === 'bedrock' ? 'bg-rivix-orange text-white shadow-xl scale-105' : 'bg-gray-800 text-gray-300 border-2 border-gray-600 hover:border-rivix-orange hover:bg-gray-700' %>">
+                            <i class="fas fa-mobile-alt mr-2"></i>
+                            Minecraft Bedrock
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-20 bg-dark-bg">
+        <div class="container mx-auto px-4">
+            <div class="max-w-2xl mx-auto mb-16" data-aos="fade-up">
+                <div class="flex items-center justify-center gap-4 mb-8">
+                    <span class="text-gray-400 font-medium">Monthly</span>
+                    <label for="pricing-toggle" class="relative inline-flex items-center cursor-pointer">
+                        <input type="checkbox" id="pricing-toggle" class="sr-only peer">
+                        <div class="w-14 h-8 bg-gray-700 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-rivix-orange/50 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[4px] after:left-[4px] after:bg-white after:border-gray-700 after:border after:rounded-full after:h-6 after:w-6 after:transition-all peer-checked:bg-rivix-orange"></div>
+                    </label>
+                    <div class="flex items-center">
+                        <span class="text-gray-400 font-medium">Yearly</span>
+                    </div>
+                </div>
+                <div class="flex items-center justify-center gap-6 flex-wrap mt-8">
+                    <div class="flex items-center gap-2 text-rivix-green text-sm font-semibold">
+                        <i class="fas fa-shield-check"></i> <span>7-Day Money-Back Guarantee</span>
+                    </div>
+                    <div class="flex items-center gap-2 text-rivix-green text-sm font-semibold">
+                        <i class="fas fa-microchip"></i> <span><%= planCategory === 'minecraft' ? 'Dedicated Ryzen 7 CPU (No Sharing)' : 'AMD Ryzen Processors' %></span>
+                    </div>
+                    <div class="flex items-center gap-2 text-rivix-green text-sm font-semibold">
+                        <i class="fas fa-lock"></i> <span>Secure SSL Checkout</span>
+                    </div>
+                    <div class="flex items-center gap-2 text-rivix-green text-sm font-semibold">
+                        <i class="fas fa-tachometer-alt"></i> <span>Instant Activation</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto" id="pricing-grid">
+                
+                <% plans.forEach((plan, index) => { %>
+                <% 
+                    const isMinecraft = planCategory === 'minecraft';
+                    const isJava = serverType === 'java';
+                    const popularBorder = plan.popular ? `border-rivix-orange` : 'border-gray-700';
+
+                    // Normalize Java plan checkout URLs to the verified Paymenter URLs
+                    let checkoutHref = plan.productUrl;
+                    if (isMinecraft && isJava) {
+                        const base = 'https://billing.rivixservers.com/products/minecraft-java-hosting/';
+                        if (plan.name === 'Dirt Block' && plan.memory === '2GB') {
+                            checkoutHref = base + 'dirt-block-2gb/checkout?plan=1';
+                        } else if (plan.name === 'Grass Block' && plan.memory === '4GB') {
+                            checkoutHref = base + 'grass-block-4gb/checkout?plan=5';
+                        } else if (plan.name === 'Stone Block' && plan.memory === '6GB') {
+                            checkoutHref = base + 'stone-block-6gb/checkout?plan=7';
+                        } else if (plan.name === 'Cobblestone' && plan.memory === '8GB') {
+                            checkoutHref = base + 'cobblestone-8gb/checkout?plan=10';
+                        } else if (plan.name === 'Iron Block' && plan.memory === '12GB') {
+                            checkoutHref = base + 'iron-block-12gb/checkout?plan=12';
+                        } else if (plan.name === 'Gold Block' && plan.memory === '16GB') {
+                            checkoutHref = base + 'gold-block-16gb/checkout?plan=14';
+                        } else if (plan.name === 'Diamond Block' && plan.memory === '24GB') {
+                            checkoutHref = base + 'diamond-block-24gb/checkout?plan=16';
+                        } else if (plan.name === 'Netherite Block' && plan.memory === '32GB') {
+                            checkoutHref = base + 'netherite-block-32gb/checkout?plan=18';
+                        }
+                    }
+
+                    // For non-Java or already-absolute URLs, fall back to productUrl / direct value
+                    if (!checkoutHref || typeof checkoutHref !== 'string') {
+                        checkoutHref = '';
+                    }
+                %>
+                <div class="pricing-card-dark p-6 rounded-2xl shadow-xl hover:border-rivix-orange <%= popularBorder %> <%= plan.popular ? 'lg:scale-[1.05] relative border-2 border-rivix-orange bg-gradient-to-br from-dark-card to-gray-800/50' : 'border' %>" data-aos="fade-up" data-aos-delay="<%= index * 100 %>">
+                    
+                    <% if (plan.popular) { %>
+                    <div class="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-rivix-orange text-white text-xs font-bold px-4 py-1 rounded-2xl shadow-lg uppercase z-10">
+                        POPULAR PICK
+                    </div>
+                    <% } %>
+                    
+                    <div class="mb-6 mt-2">
+                        <h3 class="text-2xl font-black mb-2 text-white"><%= plan.name %></h3>
+                        <% if (isMinecraft) { %>
+                            <div class="text-gray-400 text-sm font-semibold"><%= plan.memory || plan.ram %> RAM</div>
+                        <% } else { %>
+                            <div class="text-gray-400 text-sm font-semibold"><%= plan.cpu %></div>
+                            <div class="text-gray-500 text-xs mt-1"><%= plan.ram %> RAM</div>
+                        <% } %>
+                    </div>
+                    
+                    <div class="mb-6 border-b border-gray-700 pb-6">
+                        <div class="price-display">
+                            $<span class="price-monthly"><%= plan.priceMonthly.toFixed(2) %></span>
+                            <span class="price-yearly hidden"><%= plan.priceYearly.toFixed(2) %></span>
+                        </div>
+                        <div class="text-gray-400 text-sm mt-2 price-period-label">per month</div>
+                        
+                        <div class="text-rivix-green text-xs mt-3 font-semibold save-badge hidden bg-rivix-green/20 px-3 py-1.5 rounded-lg inline-block">
+                            <i class="fas fa-tag mr-1"></i>
+                            Save $<%= ((plan.priceMonthly * 12) - plan.priceYearly).toFixed(2) %> per year
+                        </div>
+                        <% if (plan.popular) { %>
+                        <div class="mt-3 text-xs text-gray-500">
+                            <i class="fas fa-users mr-1"></i>
+                            Most popular choice
+                        </div>
+                        <% } %>
+                    </div>
+                    
+                    <div class="mb-8 space-y-3 text-sm text-gray-300">
+                        <p class="text-xs italic text-center text-gray-400 font-medium mb-4"><%= plan.bestFor %></p>
+                        
+                        <% if (isMinecraft) { %>
+                            <div class="flex items-center gap-3">
+                                <i class="fas fa-microchip text-rivix-orange flex-shrink-0 w-4"></i>
+                                <span class="text-white font-semibold">Dedicated Ryzen 7 CPU</span>
+                            </div>
+                            
+                            <% 
+                                const features = isJava ? data.standardFeatures.java : data.standardFeatures.bedrock;
+                                features.slice(1, 6).forEach(feature => {
+                            %>
+                            <div class="flex items-center gap-3">
+                                <i class="fas fa-check-circle text-rivix-green flex-shrink-0 w-4"></i>
+                                <span><%= feature %></span>
+                            </div>
+                            <% }); %>
+                        <% } %>
+
+                        <div class="flex items-center gap-3">
+                            <i class="fas fa-headset text-rivix-green flex-shrink-0 w-4"></i>
+                            <span>24/7 Expert Support</span>
+                        </div>
+                    </div>
+                    
+                    <a href="<%= checkoutHref %>" 
+                       target="_blank" 
+                       rel="noopener noreferrer"
+                       class="group block w-full py-4 rounded-xl font-black text-lg text-white no-underline transition-all duration-300 text-center <%= plan.popular ? 'btn-cta hover:scale-105' : `bg-gray-700 hover:bg-gray-600` %>">
+                        <span>Get Started Now</span>
+                        <i class="fas fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform inline-block"></i>
+                    </a>
+                    
+                    <% if (plan.popular) { %>
+                    <div class="mt-4 text-center">
+                        <div class="inline-flex items-center gap-2 text-rivix-green text-sm font-semibold">
+                            <i class="fas fa-shield-check"></i>
+                            <span>7-Day Money-Back Guarantee</span>
+                        </div>
+                    </div>
+                    <% } %>
+                </div>
+                <% }); %>
+            </div>
+            
+            <div class="max-w-5xl mx-auto mt-24" data-aos="fade-up" data-aos-delay="400">
+                <div class="bg-gradient-to-br from-gray-800/80 to-dark-card backdrop-blur-sm border border-gray-700 rounded-2xl p-10 shadow-2xl">
+                    <h3 class="text-3xl font-black mb-8 text-center text-white">Every Plan Includes Everything</h3>
+                    <p class="text-center text-gray-400 mb-8">No upsells. No hidden costs. Everything you need is included.</p>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div class="flex items-start gap-4 p-4 bg-dark-bg/50 rounded-xl hover:bg-dark-bg transition-colors">
+                            <div class="w-12 h-12 rounded-lg bg-rivix-orange/20 flex items-center justify-center flex-shrink-0"><i class="fas fa-microchip text-rivix-orange text-xl"></i></div>
+                            <div>
+                                <div class="text-white font-bold mb-1">Dedicated Ryzen 7 CPU</div>
+                                <div class="text-gray-400 text-sm">AMD Ryzen 7, never shared</div>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-4 p-4 bg-dark-bg/50 rounded-xl hover:bg-dark-bg transition-colors">
+                            <div class="w-12 h-12 rounded-lg bg-rivix-blue/20 flex items-center justify-center flex-shrink-0"><i class="fas fa-shield-alt text-rivix-blue text-xl"></i></div>
+                            <div>
+                                <div class="text-white font-bold mb-1">Enterprise DDoS Protection</div>
+                                <div class="text-gray-400 text-sm">Up to 1Tbps protection</div>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-4 p-4 bg-dark-bg/50 rounded-xl hover:bg-dark-bg transition-colors">
+                            <div class="w-12 h-12 rounded-lg bg-rivix-green/20 flex items-center justify-center flex-shrink-0"><i class="fas fa-headset text-rivix-green text-xl"></i></div>
+                            <div>
+                                <div class="text-white font-bold mb-1">24/7 Expert Support</div>
+                                <div class="text-gray-400 text-sm">Real Minecraft admins, not scripts</div>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-4 p-4 bg-dark-bg/50 rounded-xl hover:bg-dark-bg transition-colors">
+                            <div class="w-12 h-12 rounded-lg bg-yellow-500/20 flex items-center justify-center flex-shrink-0"><i class="fas fa-cloud-upload-alt text-yellow-400 text-xl"></i></div>
+                            <div>
+                                <div class="text-white font-bold mb-1">Daily Automatic Backups</div>
+                                <div class="text-gray-400 text-sm">7-day retention, restore instantly</div>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-4 p-4 bg-dark-bg/50 rounded-xl hover:bg-dark-bg transition-colors">
+                            <div class="w-12 h-12 rounded-lg bg-purple-500/20 flex items-center justify-center flex-shrink-0"><i class="fas fa-key text-purple-400 text-xl"></i></div>
+                            <div>
+                                <div class="text-white font-bold mb-1">Full File Access (SFTP/SSH)</div>
+                                <div class="text-gray-400 text-sm">Complete server control</div>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-4 p-4 bg-dark-bg/50 rounded-xl hover:bg-dark-bg transition-colors">
+                            <div class="w-12 h-12 rounded-lg bg-cyan-500/20 flex items-center justify-center flex-shrink-0"><i class="fas fa-server text-cyan-400 text-xl"></i></div>
+                            <div>
+                                <div class="text-white font-bold mb-1">NVMe SSD Storage</div>
+                                <div class="text-gray-400 text-sm">10x faster than HDD</div>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-4 p-4 bg-dark-bg/50 rounded-xl hover:bg-dark-bg transition-colors">
+                            <div class="w-12 h-12 rounded-lg bg-pink-500/20 flex items-center justify-center flex-shrink-0"><i class="fas fa-network-wired text-pink-400 text-xl"></i></div>
+                            <div>
+                                <div class="text-white font-bold mb-1">Low Latency Network</div>
+                                <div class="text-gray-400 text-sm">VA datacenter, Tier 1 routing</div>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-4 p-4 bg-dark-bg/50 rounded-xl hover:bg-dark-bg transition-colors">
+                            <div class="w-12 h-12 rounded-lg bg-indigo-500/20 flex items-center justify-center flex-shrink-0"><i class="fas fa-tachometer-alt text-indigo-400 text-xl"></i></div>
+                            <div>
+                                <div class="text-white font-bold mb-1">99.95% Uptime SLA</div>
+                                <div class="text-gray-400 text-sm">Service level agreement</div>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-4 p-4 bg-dark-bg/50 rounded-xl hover:bg-dark-bg transition-colors">
+                            <div class="w-12 h-12 rounded-lg bg-red-500/20 flex items-center justify-center flex-shrink-0"><i class="fas fa-sync text-red-400 text-xl"></i></div>
+                            <div>
+                                <div class="text-white font-bold mb-1">One-Click Installer</div>
+                                <div class="text-gray-400 text-sm">Modpacks, plugins, versions</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Prominent Testimonial Section -->
+    <section class="py-16 bg-gradient-to-b from-dark-bg to-gray-900">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto" data-aos="fade-up">
+                <div class="backdrop-glass bg-dark-card/80 backdrop-blur-md border border-rivix-orange/30 rounded-2xl p-8 md:p-12 shadow-2xl hover:shadow-rivix-orange/20 transition-all">
+                    <div class="flex items-start gap-4 mb-6">
+                        <div class="flex-1">
+                            <div class="flex items-center gap-1 mb-3">
+                                <i class="fas fa-star text-yellow-400 text-xl"></i>
+                                <i class="fas fa-star text-yellow-400 text-xl"></i>
+                                <i class="fas fa-star text-yellow-400 text-xl"></i>
+                                <i class="fas fa-star text-yellow-400 text-xl"></i>
+                                <i class="fas fa-star text-yellow-400 text-xl"></i>
+                            </div>
+                            <blockquote class="text-2xl md:text-3xl font-bold text-white leading-relaxed mb-6">
+                                "Zero lag on Ryzen 7. I've tested every major host—Rivix is the only one that actually delivers dedicated CPU performance. My TPS stays at 20.0 even with 100+ players running mods. This is what hosting should be."
+                            </blockquote>
+                            <div class="flex items-center gap-4">
+                                <div class="w-16 h-16 bg-gradient-to-br from-rivix-orange to-rivix-green rounded-full flex items-center justify-center">
+                                    <span class="text-white font-black text-xl">MC</span>
+                                </div>
+                                <div>
+                                    <div class="text-white font-bold text-lg">Marcus Chen</div>
+                                    <div class="text-gray-400 text-sm">Large Modpack Server Owner • 150+ Players</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="hidden md:block">
+                            <div class="w-24 h-24 bg-rivix-orange/20 rounded-xl flex items-center justify-center">
+                                <i class="fas fa-microchip text-rivix-orange text-5xl"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="pt-6 border-t border-gray-700">
+                        <div class="flex flex-wrap items-center gap-6 text-sm">
+                            <div class="flex items-center gap-2 text-rivix-green">
+                                <i class="fas fa-check-circle"></i>
+                                <span class="font-semibold">Verified Purchase</span>
+                            </div>
+                            <div class="flex items-center gap-2 text-gray-400">
+                                <i class="fas fa-calendar"></i>
+                                <span>Active since 2024</span>
+                            </div>
+                            <div class="flex items-center gap-2 text-rivix-blue">
+                                <i class="fas fa-server"></i>
+                                <span>Premium Plan • 16GB RAM</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- One-Click Modpack Installation Section -->
+    <section class="py-20 bg-gray-900 border-t border-gray-800">
+        <div class="container mx-auto px-4">
+            <div class="max-w-6xl mx-auto">
+                <div class="text-center mb-12" data-aos="fade-up">
+                    <h2 class="text-4xl md:text-5xl font-black text-white mb-4">
+                        <span class="text-rivix-orange">One-Click</span> Modpack Installation
+                    </h2>
+                    <p class="text-xl text-gray-400 max-w-3xl mx-auto">
+                        Over <strong class="text-rivix-orange">2000+ Modpacks and Plugins</strong> supported. Instant install. Optimized for Ryzen 7 performance.
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mb-12" data-aos="fade-up" data-aos-delay="100">
+                    <div class="bg-dark-card p-6 rounded-xl border border-gray-700 text-center hover:border-rivix-orange transition-all">
+                        <div class="w-16 h-16 mx-auto mb-4 bg-rivix-orange/20 rounded-xl flex items-center justify-center">
+                            <i class="fas fa-cube text-rivix-orange text-3xl"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-white mb-2">Forge</h3>
+                        <p class="text-gray-400 text-sm">Full Forge mod support</p>
+                    </div>
+                    
+                    <div class="bg-dark-card p-6 rounded-xl border border-gray-700 text-center hover:border-rivix-blue transition-all">
+                        <div class="w-16 h-16 mx-auto mb-4 bg-rivix-blue/20 rounded-xl flex items-center justify-center">
+                            <i class="fas fa-puzzle-piece text-rivix-blue text-3xl"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-white mb-2">Fabric</h3>
+                        <p class="text-gray-400 text-sm">Lightweight Fabric mods</p>
+                    </div>
+                    
+                    <div class="bg-dark-card p-6 rounded-xl border border-gray-700 text-center hover:border-rivix-green transition-all">
+                        <div class="w-16 h-16 mx-auto mb-4 bg-rivix-green/20 rounded-xl flex items-center justify-center">
+                            <i class="fas fa-database text-rivix-green text-3xl"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-white mb-2">CurseForge</h3>
+                        <p class="text-gray-400 text-sm">2000+ modpacks</p>
+                    </div>
+                    
+                    <div class="bg-dark-card p-6 rounded-xl border border-gray-700 text-center hover:border-purple-500 transition-all">
+                        <div class="w-16 h-16 mx-auto mb-4 bg-purple-500/20 rounded-xl flex items-center justify-center">
+                            <i class="fas fa-plug text-purple-400 text-3xl"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-white mb-2">Spigot/Paper</h3>
+                        <p class="text-gray-400 text-sm">Plugin support</p>
+                    </div>
+                </div>
+
+                <div class="bg-gradient-to-r from-rivix-orange/10 to-rivix-blue/10 border border-gray-700 rounded-2xl p-8" data-aos="fade-up" data-aos-delay="200">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div class="flex items-start gap-4">
+                            <div class="w-12 h-12 bg-rivix-orange/20 rounded-lg flex items-center justify-center flex-shrink-0">
+                                <i class="fas fa-bolt text-rivix-orange text-xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-white font-bold mb-2">Instant Setup</h4>
+                                <p class="text-gray-400 text-sm">Install any modpack in under 60 seconds. No manual configuration needed.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start gap-4">
+                            <div class="w-12 h-12 bg-rivix-green/20 rounded-lg flex items-center justify-center flex-shrink-0">
+                                <i class="fas fa-microchip text-rivix-green text-xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-white font-bold mb-2">Ryzen 7 Optimized</h4>
+                                <p class="text-gray-400 text-sm">All modpacks pre-configured for optimal performance on dedicated Ryzen 7 CPUs.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start gap-4">
+                            <div class="w-12 h-12 bg-rivix-blue/20 rounded-lg flex items-center justify-center flex-shrink-0">
+                                <i class="fas fa-sync text-rivix-blue text-xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-white font-bold mb-2">Auto-Updates</h4>
+                                <p class="text-gray-400 text-sm">Keep your modpacks updated automatically. One-click rollback if needed.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="text-center mt-12" data-aos="fade-up" data-aos-delay="300">
+                    <a href="<%= company.billingUrl %>" target="_blank" class="inline-flex items-center gap-3 px-10 py-5 bg-rivix-orange text-white rounded-xl font-black text-xl hover:bg-orange-600 transition-all duration-300 shadow-2xl hover:scale-105">
+                        <i class="fas fa-rocket"></i>
+                        <span>Start Your Server Now</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Support Tickets CTA Section -->
+    <section class="py-16 bg-dark-card border-b border-gray-700">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto text-center" data-aos="fade-up">
+                <div class="bg-gradient-to-br from-rivix-orange/20 to-rivix-orange/10 border-2 border-rivix-orange/50 rounded-2xl p-8 md:p-12">
+                    <i class="fas fa-ticket-alt text-rivix-orange text-5xl mb-6"></i>
+                    <h3 class="text-3xl font-black text-white mb-4">Need Help? We're Here 24/7</h3>
+                    <p class="text-xl text-gray-300 mb-8">Have a question or issue? Our support team is standing by. Submit a ticket and we'll respond within minutes.</p>
+                    <a href="<%= company.ticketUrl %>" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-3 px-10 py-5 bg-rivix-orange text-white rounded-xl font-black text-xl hover:bg-orange-600 transition-all duration-300 shadow-2xl hover:scale-105">
+                        <i class="fas fa-ticket-alt"></i>
+                        <span>Open Support Tickets</span>
+                        <i class="fas fa-external-link-alt"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <%- include('partials/footer') %>
+
+    <script src="/js/main.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({ duration: 800, once: true });
+    </script>
+</body>
+</html>

@@ -1,0 +1,47 @@
+<% 
+    // Default values - handle undefined variables safely
+    // Note: When using include() with parameters, those become local variables
+    const pageTitle = typeof title !== 'undefined' ? title : 'Premium Minecraft Server Hosting - Rivix Servers';
+    const pageDescription = typeof metaDescription !== 'undefined' ? metaDescription : 'Premium Minecraft server hosting powered by dedicated AMD CPUs. Zero lag, transparent pricing, 24/7 support.';
+    
+    // Check for BASE_URL in parent scope first, then use passed canonicalUrl, then default
+    const baseUrl = typeof BASE_URL !== 'undefined' ? BASE_URL : 'https://rivixservers.com';
+    const pageUrl = typeof canonicalUrl !== 'undefined' ? canonicalUrl : baseUrl + '/';
+    const pageImage = typeof ogImage !== 'undefined' ? ogImage : baseUrl + (typeof images !== 'undefined' && images.hero ? images.hero[0] : '/images/hero (1).png');
+    const pageType = typeof ogType !== 'undefined' ? ogType : 'website';
+%>
+<!-- Primary Meta Tags -->
+<title><%= pageTitle %></title>
+<meta name="title" content="<%= pageTitle %>">
+<meta name="description" content="<%= pageDescription %>">
+<meta name="keywords" content="Minecraft hosting, Minecraft server hosting, Ryzen 7 hosting, dedicated CPU Minecraft, lag-free Minecraft hosting, Minecraft Java hosting, Minecraft Bedrock hosting">
+<meta name="author" content="Rivix Servers">
+<meta name="robots" content="index, follow">
+<meta name="language" content="English">
+<meta name="revisit-after" content="7 days">
+
+<!-- Open Graph / Facebook -->
+<meta property="og:type" content="<%= pageType %>">
+<meta property="og:url" content="<%= pageUrl %>">
+<meta property="og:title" content="<%= pageTitle %>">
+<meta property="og:description" content="<%= pageDescription %>">
+<meta property="og:image" content="<%= pageImage %>">
+<meta property="og:site_name" content="Rivix Servers">
+<meta property="og:locale" content="en_US">
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:url" content="<%= pageUrl %>">
+<meta name="twitter:title" content="<%= pageTitle %>">
+<meta name="twitter:description" content="<%= pageDescription %>">
+<meta name="twitter:image" content="<%= pageImage %>">
+<meta name="twitter:site" content="@rivixservers">
+<meta name="twitter:creator" content="@rivixservers">
+
+<!-- Canonical URL -->
+<link rel="canonical" href="<%= pageUrl %>">
+
+<!-- Additional SEO -->
+<link rel="alternate" hreflang="en" href="<%= pageUrl %>">
+<meta name="theme-color" content="#FF6B00">
+<meta name="msapplication-TileColor" content="#0F172A">

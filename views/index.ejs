@@ -1,0 +1,966 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="<%= images.logo %>">
+    
+    <%- include('partials/seo-meta', {
+        title: 'Rivix | Honest High-Performance Minecraft Hosting',
+        metaDescription: 'No hidden fees, single-location transparency, and direct developer support. Premium Minecraft hosting with owned hardware and honest pricing.',
+        canonicalUrl: typeof BASE_URL !== 'undefined' ? BASE_URL : 'https://rivixservers.com'
+    }) %>
+    
+    <!-- JSON-LD Product Schema -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Product",
+      "name": "Minecraft Server Hosting",
+      "description": "Premium Minecraft server hosting with AMD Ryzen 7 CPUs, NVMe storage, and transparent infrastructure. Honest pricing, no overselling, and direct developer support.",
+      "brand": {
+        "@type": "Brand",
+        "name": "Rivix"
+      },
+      "offers": {
+        "@type": "Offer",
+        "url": "<%= typeof BASE_URL !== 'undefined' ? BASE_URL : 'https://rivixservers.com' %>/pricing",
+        "priceCurrency": "USD",
+        "price": "6.99",
+        "priceValidUntil": "2026-12-31",
+        "availability": "https://schema.org/InStock",
+        "itemCondition": "https://schema.org/NewCondition"
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "5",
+        "reviewCount": "1"
+      }
+    }
+    </script>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
+    <link rel="stylesheet" href="/css/custom.css">
+    
+    <style>
+        /* Base Dark Mode Setup - Premium Hosting Theme */
+        .bg-dark-bg { background-color: #020617; }
+        .bg-dark-card { background-color: #1E293B; }
+        .text-rivix-orange, .text-rivix-primary { color: #6366f1; }
+        .text-rivix-green, .text-rivix-secondary { color: #8b5cf6; }
+        .text-rivix-blue, .text-rivix-accent { color: #8b5cf6; }
+        .text-rivix-highlight { color: #a78bfa; }
+        
+        html { scroll-behavior: smooth; }
+        body { padding-top: 72px; background-color: #020617; color: #E2E8F0; }
+        /* Section spacing - using inline classes for consistency */
+        h1, h2, h3 { font-weight: 900; letter-spacing: -0.04em; color: #F8FAFC; }
+        
+        /* Lucide icon styling */
+        .lucide-icon {
+            stroke: rgba(255, 255, 255, 0.85) !important;
+            stroke-width: 2;
+            width: 2.5rem;
+            height: 2.5rem;
+        }
+    </style>
+</head>
+<body class="bg-dark-bg font-sans antialiased">
+
+    <%- include('partials/header') %>
+
+<%
+/*
+  ============================================================
+  IMPORTANT
+  These checkout URLs are VERIFIED Paymenter product slugs.
+  Do NOT guess slugs. Always copy from Paymenter admin.
+  ============================================================
+*/
+
+/* ========= FEATURED JAVA PLANS (HOME PAGE ONLY) ========= */
+const featuredJavaPlans = [
+  {
+    name: 'Dirt Block',
+    memory: '2GB',
+        priceMonthly: 6.99,
+        priceYearly: 69.99,
+    popular: false,
+    productUrl: 'https://billing.rivixservers.com/products/minecraft-java-hosting/dirt-block-2gb/checkout?plan=1'
+  },
+  {
+    name: 'Cobblestone Block',
+    memory: '8GB',
+        priceMonthly: 15.99,
+        priceYearly: 159.99,
+    popular: true,
+    productUrl: 'https://billing.rivixservers.com/products/minecraft-java-hosting/cobblestone-8gb/checkout?plan=10'
+  },
+  {
+    name: 'Netherite Block',
+    memory: '32GB',
+        priceMonthly: 64.99,
+        priceYearly: 649.99,
+    popular: false,
+    productUrl: 'https://billing.rivixservers.com/products/minecraft-java-hosting/netherite-block-32gb/checkout?plan=18'
+  }
+];
+
+/* ========= FEATURED BEDROCK PLANS (HOME PAGE ONLY) ========= */
+const featuredBedrockPlans = [
+  {
+    name: 'Bedrock – 2GB',
+    memory: '2GB',
+        priceMonthly: 3.99,
+        priceYearly: 39.99,
+    popular: false,
+    productUrl: 'https://billing.rivixservers.com/products/minecraft-bedrock-hosting/bedrock-2gb/checkout?plan=20'
+  },
+  {
+    name: 'Bedrock – 8GB',
+    memory: '8GB',
+        priceMonthly: 13.99,
+        priceYearly: 139.99,
+    popular: true,
+    productUrl: 'https://billing.rivixservers.com/products/minecraft-bedrock-hosting/bedrock-8gb/checkout?plan=26'
+  },
+  {
+    name: 'Bedrock – 32GB',
+    memory: '32GB',
+        priceMonthly: 49.99,
+        priceYearly: 499.99,
+    popular: false,
+    productUrl: 'https://billing.rivixservers.com/products/minecraft-bedrock-hosting/bedrock-32gb/checkout?plan=34'
+  }
+];
+%>
+
+    <main id="main-content">
+        <!-- HERO SECTION - 2025 GAMER TECH DESIGN -->
+        <section class="hero-2025 relative overflow-hidden bg-[#020617] border-b border-slate-900 min-h-[95vh] flex items-center">
+          <!-- LAYER 1: Base dark gradient (softened contrast) -->
+          <div class="absolute inset-0 bg-gradient-to-br from-[#0f172a] via-[#0b1220] to-[#0f172a]"></div>
+
+          <!-- LAYER 2: Mesh gradient overlay -->
+          <div class="absolute inset-0 hero-mesh-gradient"></div>
+
+          <!-- LAYER 3: Static hexagon grid -->
+          <div class="absolute inset-0 hero-hex-grid-static opacity-[0.05]"></div>
+
+          <!-- LAYER 4: Glow orbs (reduced intensity ~50% for calm) -->
+          <div class="absolute -top-32 -left-32 h-[800px] w-[800px] rounded-full bg-[#6366f1]/7 blur-[110px] hero-orb-pulse-1"></div>
+          <div class="absolute top-1/3 -right-32 h-[800px] w-[800px] rounded-full bg-[#8b5cf6]/7 blur-[110px] hero-orb-pulse-2"></div>
+          <div class="absolute bottom-1/4 left-1/3 h-[600px] w-[600px] rounded-full bg-[#8b5cf6]/5 blur-[85px] hero-orb-pulse-3"></div>
+
+          <!-- LAYER 5: Static particles (reduced opacity ~50% to reduce noise) -->
+          <div class="absolute inset-0 hero-particles-layer">
+            <div class="hero-particle absolute top-[20%] left-[15%] w-2 h-2 bg-[#22D3EE]/20 rounded-full blur-sm"></div>
+            <div class="hero-particle absolute top-[40%] right-[20%] w-1.5 h-1.5 bg-[#10B981]/20 rounded-full blur-sm"></div>
+            <div class="hero-particle absolute bottom-[30%] left-[25%] w-2.5 h-2.5 bg-[#8B5CF6]/20 rounded-full blur-sm"></div>
+            <div class="hero-particle absolute top-[60%] right-[15%] w-1 h-1 bg-[#06B6D4]/25 rounded-full blur-sm"></div>
+            <div class="hero-particle absolute bottom-[20%] right-[30%] w-2 h-2 bg-[#10B981]/15 rounded-full blur-sm"></div>
+          </div>
+
+          <!-- CONTENT LAYER - TWO COLUMN LAYOUT -->
+          <div class="relative z-10 mx-auto max-w-7xl px-6 py-16 lg:py-24 w-full">
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+              
+              <!-- LEFT COLUMN: Content -->
+              <div class="order-2 lg:order-1">
+                <!-- Trust badge -->
+                <div class="inline-flex items-center gap-2 px-5 py-2.5 mb-6 hero-badge-pill">
+                  <span class="w-2 h-2 rounded-full bg-[#6366f1] hero-badge-dot"></span>
+                  <span class="text-xs font-bold tracking-wider uppercase text-slate-200">Ryzen 7 CPUs • NVMe SSDs • <%= trustMetrics.uptime %> Uptime</span>
+                </div>
+
+                <!-- Outcome-driven headline (3-second hook) -->
+                <h1 class="text-6xl sm:text-7xl lg:text-7xl xl:text-8xl font-black tracking-tight mb-6 hero-headline">
+                  <span class="text-white">Play Without Lag:</span><br>
+                  <span class="hero-gradient-text">Minecraft</span> <span class="text-white">Server Hosting</span><br>
+                  <span class="text-xl sm:text-2xl lg:text-3xl text-slate-400 font-normal mt-2 block">Instant Deployment • Zero Overselling</span>
+  </h1>
+
+                <!-- Performance markers subheadline -->
+                <p class="text-lg sm:text-xl text-slate-300 mb-8 leading-relaxed font-medium">
+                  AMD Ryzen 7 CPUs • NVMe SSD Storage • Enterprise DDoS Protection • 99.9% Uptime SLA
+                </p>
+
+                <!-- Low-friction game selector + CTA -->
+                <div class="mb-8">
+                  <form action="/pricing" method="GET" class="hero-cta-form">
+                    <div class="flex flex-col sm:flex-row gap-3 mb-4">
+                      <!-- Game selector dropdown -->
+                      <div class="relative flex-1">
+                        <button type="button" class="hero-game-selector-btn w-full text-left px-5 py-4 bg-dark-card/80 backdrop-blur-sm border border-slate-700 rounded-xl text-white hover:border-rivix-primary/50 transition-all focus:outline-none focus:border-rivix-primary">
+                          <div class="flex items-center justify-between">
+                            <div class="flex items-center gap-3">
+                              <i class="fas fa-gamepad text-slate-500"></i>
+                              <span class="text-sm text-slate-400">Select Game:</span>
+                              <span class="hero-game-selected font-semibold text-white">Minecraft Java</span>
+                            </div>
+                            <i class="fas fa-chevron-down text-slate-400 text-sm"></i>
+                          </div>
+                        </button>
+                        <input type="hidden" id="hero-game-selector" name="type" value="java">
+                        <!-- Dropdown menu -->
+                        <div class="hero-game-dropdown hidden absolute top-full left-0 right-0 mt-2 bg-dark-card/95 backdrop-blur-md border border-slate-700 rounded-xl shadow-2xl z-50 overflow-hidden">
+                          <div class="hero-game-option px-5 py-3 text-white hover:bg-slate-800/50 cursor-pointer transition-colors flex items-center gap-3" data-value="java">
+                            <i class="fas fa-cube text-slate-400"></i>
+                            <span>Minecraft Java Edition</span>
+                          </div>
+                          <div class="hero-game-option px-5 py-3 text-white hover:bg-slate-800/50 cursor-pointer transition-colors flex items-center gap-3 border-t border-slate-700" data-value="bedrock">
+                            <i class="fas fa-mobile-alt text-slate-400"></i>
+                            <span>Minecraft Bedrock Edition</span>
+                          </div>
+                        </div>
+                      </div>
+                      <!-- Primary CTA button (Gradient) -->
+                      <a
+                        href="/pricing"
+                        class="group relative inline-flex items-center justify-center px-8 py-4 text-lg font-bold text-white hero-cta-primary overflow-hidden whitespace-nowrap rounded-xl"
+                      >
+                        <span class="relative z-10 flex items-center gap-2">
+                          Launch Server <span class="hidden sm:inline">from $6.99/mo</span>
+                          <i class="fas fa-rocket group-hover:translate-x-1 transition-transform duration-300"></i>
+                        </span>
+                      </a>
+                    </div>
+                  </form>
+                  
+                  <!-- Social proof directly under CTA -->
+                  <div class="flex flex-wrap items-center gap-5 text-sm">
+                    <div class="flex items-center gap-2 text-slate-300 hover:text-white transition-colors">
+                      <i class="fas fa-check-circle text-[#6366f1]"></i>
+                      <span class="font-medium">Premium Infrastructure</span>
+                    </div>
+                    <div class="flex items-center gap-2 text-slate-300 hover:text-white transition-colors">
+                      <i class="fas fa-microchip text-[#8b5cf6]"></i>
+                      <span class="font-medium">Dedicated Ryzen 7 CPUs</span>
+                    </div>
+                    <div class="flex items-center gap-2 text-slate-300 hover:text-white transition-colors">
+                      <span class="w-2.5 h-2.5 rounded-full bg-[#22D3EE] shadow-lg shadow-[#22D3EE]/50 animate-pulse"></span>
+                      <span class="font-medium"><%= trustMetrics.uptime %> Uptime SLA</span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Feature pills (glassmorphism) -->
+                <div class="flex flex-wrap items-center gap-3 mb-8">
+                  <div class="hero-feature-pill">
+                    <i class="fas fa-bolt text-[#6366f1]"></i>
+                    <span>Instant Setup</span>
+                  </div>
+                  <div class="hero-feature-pill">
+                    <i class="fas fa-shield-alt text-[#8b5cf6]"></i>
+                    <span>DDoS Protected</span>
+                  </div>
+                  <div class="hero-feature-pill">
+                    <i class="fas fa-server text-[#6366f1]"></i>
+                    <span>Full Root Access</span>
+                  </div>
+                  <div class="hero-feature-pill">
+                    <i class="fas fa-database text-[#8b5cf6]"></i>
+                    <span>MySQL Included</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- RIGHT COLUMN: Hero Image -->
+              <div class="order-1 lg:order-2 relative h-[400px] sm:h-[500px] lg:h-[600px] flex items-center justify-center">
+                <!-- Hero Image with enhanced overlay effects -->
+                <div class="relative w-full h-full rounded-2xl overflow-hidden group">
+                  <img 
+                    src="/images/random (1).png" 
+                    alt="Premium Minecraft Server Hosting Infrastructure" 
+                    class="w-full h-full object-cover rounded-2xl shadow-2xl transition-transform duration-700 group-hover:scale-105"
+                    width="800"
+                    height="600"
+                    fetchpriority="high"
+                    loading="eager"
+                  >
+                  <!-- Enhanced gradient overlay -->
+                  <div class="absolute inset-0 bg-gradient-to-br from-[#020617]/30 via-transparent to-[#020617]/50"></div>
+                  <!-- Animated glow effect -->
+                  <div class="absolute inset-0 bg-gradient-to-br from-[#6366f1]/15 via-transparent to-[#8b5cf6]/15 pointer-events-none opacity-100 group-hover:opacity-150 transition-opacity duration-500"></div>
+                  <!-- Border glow -->
+                  <div class="absolute inset-0 rounded-2xl border-2 border-transparent bg-gradient-to-r from-[#6366f1]/20 via-[#8b5cf6]/20 to-[#6366f1]/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+                  <!-- Corner accent -->
+                  <div class="absolute top-4 right-4 w-3 h-3 bg-[#22D3EE] rounded-full shadow-lg shadow-[#22D3EE]/50 animate-pulse"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 2025 PREMIUM STYLES - SUBTLE INTERACTIONS -->
+          <style>
+            /* Background layers - reduced intensity ~50% (soften contrast) */
+            .hero-mesh-gradient {
+              background: 
+                radial-gradient(at 20% 30%, rgba(99,102,241,0.06) 0px, transparent 50%),
+                radial-gradient(at 80% 70%, rgba(139,92,246,0.05) 0px, transparent 50%),
+                radial-gradient(at 50% 50%, rgba(139,92,246,0.04) 0px, transparent 50%);
+              background-size: 100% 100%;
+              opacity: 0.6;
+            }
+
+            .hero-hex-grid-static {
+              background-image: 
+                linear-gradient(rgba(148,163,184,0.06) 1px, transparent 1px),
+                linear-gradient(60deg, rgba(148,163,184,0.06) 1px, transparent 1px),
+                linear-gradient(-60deg, rgba(148,163,184,0.06) 1px, transparent 1px);
+              background-size: 120px 69px, 120px 69px, 120px 69px;
+              background-position: 0 0, 0 35px, 60px 0;
+            }
+
+            /* Subtle pulsing orbs */
+            .hero-orb-pulse-1 { animation: heroOrbPulse 8s ease-in-out infinite; }
+            .hero-orb-pulse-2 { animation: heroOrbPulse 10s ease-in-out infinite 2s; }
+            .hero-orb-pulse-3 { animation: heroOrbPulse 12s ease-in-out infinite 4s; }
+
+            @keyframes heroOrbPulse {
+              0%, 100% { opacity: 0.25; }
+              50% { opacity: 0.4; }
+            }
+
+            /* Enhanced badge with better visibility */
+            .hero-badge-pill {
+              background: rgba(15,23,42,0.85);
+              border: 1.5px solid rgba(99,102,241,0.25);
+              border-left: 4px solid rgba(99,102,241,0.6);
+              border-radius: 9999px;
+              backdrop-filter: blur(20px);
+              box-shadow: 
+                0 4px 15px rgba(99,102,241,0.15),
+                inset 0 1px 0 rgba(255,255,255,0.1),
+                0 0 20px rgba(99,102,241,0.1);
+              transition: all 0.3s ease;
+            }
+            
+            .hero-badge-pill:hover {
+              border-color: rgba(99,102,241,0.4);
+              box-shadow: 
+                0 6px 20px rgba(99,102,241,0.25),
+                inset 0 1px 0 rgba(255,255,255,0.15),
+                0 0 30px rgba(99,102,241,0.15);
+              transform: translateY(-1px);
+            }
+
+            .hero-badge-dot {
+              animation: heroBadgePulse 2s ease-in-out infinite;
+              box-shadow: 0 0 3px rgba(99,102,241,0.2);
+            }
+
+            @keyframes heroBadgePulse {
+              0%, 100% { opacity: 1; transform: scale(1); }
+              50% { opacity: 0.85; transform: scale(1.08); }
+            }
+
+            /* Enhanced headline styling for better impact */
+            .hero-headline {
+              line-height: 1.1;
+              text-shadow: 
+                0 4px 15px rgba(0,0,0,0.7),
+                0 2px 8px rgba(0,0,0,0.5);
+            }
+            
+            .hero-headline .text-white {
+              text-shadow: 
+                0 4px 15px rgba(0,0,0,0.8),
+                0 2px 8px rgba(0,0,0,0.6);
+            }
+
+            /* Vibrant cyan text - clean and clear without blur effects */
+            .hero-gradient-text {
+              color: #22D3EE;
+              font-weight: 900;
+              letter-spacing: -0.02em;
+              text-shadow: 
+                0 2px 4px rgba(0, 0, 0, 0.5),
+                0 1px 2px rgba(0, 0, 0, 0.3);
+            }
+
+            /* Game Selector Dropdown */
+            .hero-game-selector-btn {
+              transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            }
+
+            .hero-game-selector-btn:hover {
+              border-color: rgba(148,163,184,0.4);
+              background: rgba(255,255,255,0.03);
+            }
+
+            .hero-game-dropdown {
+              animation: heroDropdownFade 0.2s ease-out;
+            }
+
+            @keyframes heroDropdownFade {
+              from { opacity: 0; transform: translateY(-10px); }
+              to { opacity: 1; transform: translateY(0); }
+            }
+
+            /* Enhanced Primary CTA with better visual impact */
+            .hero-cta-primary {
+              background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+              border-radius: 0.75rem;
+              box-shadow: 
+                0 10px 35px rgba(99,102,241,0.4),
+                0 0 30px rgba(99,102,241,0.2),
+                inset 0 1px 0 rgba(255,255,255,0.25);
+              transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+              position: relative;
+              overflow: hidden;
+            }
+            
+            .hero-cta-primary::before {
+              content: '';
+              position: absolute;
+              top: 0;
+              left: -100%;
+              width: 100%;
+              height: 100%;
+              background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+              transition: left 0.5s;
+            }
+            
+            .hero-cta-primary:hover::before {
+              left: 100%;
+            }
+
+            .hero-cta-primary:hover {
+              transform: translateY(-3px) scale(1.02);
+              box-shadow: 
+                0 15px 50px rgba(99,102,241,0.5),
+                0 0 40px rgba(99,102,241,0.3),
+                inset 0 1px 0 rgba(255,255,255,0.3);
+            }
+
+            /* Feature pills (enhanced glassmorphism with better visibility) */
+            .hero-feature-pill {
+              display: inline-flex;
+              align-items: center;
+              gap: 0.75rem;
+              padding: 0.75rem 1.25rem;
+              background: rgba(15,23,42,0.75);
+              border: 1.5px solid rgba(148,163,184,0.3);
+              border-radius: 9999px;
+              font-size: 0.9rem;
+              font-weight: 600;
+              color: rgba(255,255,255,0.98);
+              backdrop-filter: blur(20px);
+              transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+              box-shadow: 
+                0 4px 15px rgba(0,0,0,0.3),
+                inset 0 1px 0 rgba(255,255,255,0.1),
+                0 0 20px rgba(99,102,241,0.1);
+            }
+
+            .hero-feature-pill i {
+              font-size: 1.1rem;
+              filter: drop-shadow(0 0 4px currentColor);
+            }
+
+            .hero-feature-pill:hover {
+              border-color: rgba(99,102,241,0.6);
+              background: rgba(15,23,42,0.9);
+              transform: translateY(-2px) scale(1.05);
+              box-shadow: 
+                0 6px 20px rgba(99,102,241,0.3),
+                inset 0 1px 0 rgba(255,255,255,0.15),
+                0 0 30px rgba(99,102,241,0.2);
+            }
+
+
+            /* Mobile optimization */
+            @media (max-width: 768px) {
+              .hero-2025 {
+                min-height: auto;
+                padding: 4rem 0;
+              }
+            }
+          </style>
+        </section>
+
+        <!-- Infrastructure Transparency Section -->
+        <section class="py-16 bg-[#020617] border-b border-slate-900">
+          <div class="max-w-6xl mx-auto px-6">
+            <h2 class="text-3xl sm:text-4xl font-black tracking-tight mb-8 text-center">
+              Infrastructure <span class="bg-gradient-to-r from-cyan-400 to-indigo-400 bg-clip-text text-transparent">Transparency</span>
+            </h2>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center mb-8">
+              <div class="order-2 lg:order-1">
+                <img 
+                  src="/images/random (2).png" 
+                  alt="Rivix Servers Data Center Infrastructure" 
+                  class="w-full h-auto rounded-xl shadow-2xl border border-slate-700/50"
+                  width="800"
+                  height="600"
+                  loading="lazy"
+                >
+              </div>
+              <div class="order-1 lg:order-2">
+            <div class="bg-slate-900/60 backdrop-blur-md border border-white/10 rounded-xl p-6 sm:p-8 shadow-xl">
+              <!-- Server Location -->
+              <div class="mb-6 pb-6 border-b border-white/10">
+                <div class="flex items-center gap-3 mb-2">
+                  <i class="fas fa-server text-cyan-400 text-xl"></i>
+                  <h3 class="text-xl font-bold text-white">Server Location</h3>
+                </div>
+                <p class="text-slate-300 text-lg">US East: Ashburn, VA</p>
+              </div>
+
+              <!-- Live Ping Estimates -->
+              <div class="mb-6 pb-6 border-b border-white/10">
+                <h3 class="text-lg font-semibold text-white mb-4 flex items-center gap-2">
+                  <i class="fas fa-chart-line text-indigo-400"></i>
+                  Live Ping Estimates
+                </h3>
+                <div class="space-y-3">
+                  <div class="flex justify-between items-center py-2 px-4 bg-slate-800/50 rounded-lg">
+                    <span class="text-slate-300 font-medium">New York, NY</span>
+                    <span class="text-cyan-400 font-bold">~25ms</span>
+                  </div>
+                  <div class="flex justify-between items-center py-2 px-4 bg-slate-800/50 rounded-lg">
+                    <span class="text-slate-300 font-medium">Los Angeles, CA</span>
+                    <span class="text-cyan-400 font-bold">~35ms</span>
+                  </div>
+                  <div class="flex justify-between items-center py-2 px-4 bg-slate-800/50 rounded-lg">
+                    <span class="text-slate-300 font-medium">London, UK</span>
+                    <span class="text-cyan-400 font-bold">~95ms</span>
+                  </div>
+                  <div class="flex justify-between items-center py-2 px-4 bg-slate-800/50 rounded-lg">
+                    <span class="text-slate-300 font-medium">Sydney, AU</span>
+                    <span class="text-cyan-400 font-bold">~180ms</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Badge -->
+              <div class="flex items-center gap-3">
+                <div class="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-cyan-400/20 to-indigo-400/20 border border-cyan-400/30 rounded-lg">
+                  <i class="fas fa-check-circle text-cyan-400"></i>
+                  <span class="text-white font-semibold text-sm">Owned Hardware - No Rental Reselling</span>
+                </div>
+              </div>
+            </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Technical Specifications Section -->
+        <section class="py-16 bg-[#020617] border-b border-slate-900">
+          <div class="max-w-6xl mx-auto px-6">
+            <h2 class="text-3xl sm:text-4xl font-black tracking-tight mb-8 text-center">
+              Hardware That <span class="bg-gradient-to-r from-cyan-400 to-indigo-400 bg-clip-text text-transparent">Matters</span>
+            </h2>
+            
+            <!-- Hardware Image -->
+            <div class="max-w-4xl mx-auto mb-8" data-aos="fade-up">
+              <img 
+                src="/images/random (6).png" 
+                alt="Rivix Servers Hardware Specifications" 
+                class="w-full h-auto rounded-xl shadow-2xl border border-slate-700/50"
+                width="1200"
+                height="600"
+                loading="lazy"
+              >
+            </div>
+            
+            <div class="overflow-x-auto">
+              <table class="w-full bg-slate-900/60 backdrop-blur-md border border-white/10 rounded-xl overflow-hidden">
+                <thead>
+                  <tr class="bg-gradient-to-r from-slate-800/80 to-slate-900/80 border-b border-white/10">
+                    <th class="px-6 py-4 text-left text-sm font-bold text-white uppercase tracking-wider">Component</th>
+                    <th class="px-6 py-4 text-left text-sm font-bold text-cyan-400 uppercase tracking-wider bg-gradient-to-r from-indigo-500/20 to-purple-500/20">Rivix Standard</th>
+                    <th class="px-6 py-4 text-left text-sm font-bold text-slate-400 uppercase tracking-wider">Budget Hosts</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-white/10">
+                  <tr class="hover:bg-slate-800/30 transition-colors">
+                    <td class="px-6 py-4 text-slate-300 font-semibold">CPU</td>
+                    <td class="px-6 py-4">
+                      <span class="text-white font-bold bg-gradient-to-r from-cyan-400 to-indigo-400 bg-clip-text text-transparent">AMD Ryzen 7</span>
+                    </td>
+                    <td class="px-6 py-4 text-slate-400">Shared vCPU or oversold cores</td>
+                  </tr>
+                  <tr class="hover:bg-slate-800/30 transition-colors">
+                    <td class="px-6 py-4 text-slate-300 font-semibold">RAM</td>
+                    <td class="px-6 py-4 text-white font-semibold">DDR5 ECC Memory</td>
+                    <td class="px-6 py-4 text-slate-400">DDR4 or non-ECC</td>
+                  </tr>
+                  <tr class="hover:bg-slate-800/30 transition-colors">
+                    <td class="px-6 py-4 text-slate-300 font-semibold">Storage</td>
+                    <td class="px-6 py-4 text-white font-semibold">NVMe SSD</td>
+                    <td class="px-6 py-4 text-slate-400">SATA SSD or slower storage</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- Why Choose Rivix Section -->
+        <section class="py-16 bg-[#020617] border-b border-slate-900">
+            <div class="container mx-auto px-6">
+                <div class="text-center max-w-3xl mx-auto mb-12">
+                    <p class="text-sm font-semibold tracking-[0.2em] text-[#8b5cf6] uppercase mb-3">
+                        Why Choose Rivix
+                    </p>
+                    <h2 class="text-3xl sm:text-4xl lg:text-5xl font-black text-white mb-4">
+                        Built for Serious Minecraft Communities
+                    </h2>
+                    <p class="text-gray-400 text-lg">
+                        Hosting that prioritizes performance, transparency, and long-term reliability.
+                    </p>
+                </div>
+                
+                <!-- Feature Image -->
+                <div class="max-w-4xl mx-auto mb-12" data-aos="fade-up">
+                    <img 
+                        src="/images/random (3).png" 
+                        alt="Rivix Servers Premium Infrastructure" 
+                        class="w-full h-auto rounded-2xl shadow-2xl border border-slate-700/50"
+                        width="1200"
+                        height="600"
+                        loading="lazy"
+                    >
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+                    <%- include('partials/components/card-feature', {
+                        title: 'Dedicated Ryzen 7',
+                        description: 'Dedicated AMD Ryzen 7 power tuned for stable TPS and demanding modpacks.',
+                        icon: 'cpu',
+                        iconType: 'lucide',
+                        iconColor: 'rivix-primary',
+                        borderColor: 'rivix-primary',
+                        shadowColor: 'rivix-primary',
+                        aosDelay: 0
+                    }) %>
+                    <%- include('partials/components/card-feature', {
+                        title: 'Secure & Reliable',
+                        description: 'Enterprise-grade DDoS protection, hardened network, and transparent status reporting.',
+                        icon: 'shield-check',
+                        iconType: 'lucide',
+                        iconColor: 'rivix-secondary',
+                        borderColor: 'rivix-secondary',
+                        shadowColor: 'rivix-secondary',
+                        aosDelay: 150
+                    }) %>
+                    <%- include('partials/components/card-feature', {
+                        title: '24/7 Expert Support',
+                        description: 'Real Minecraft admins on standby to help with crashes, plugins, and performance tuning.',
+                        icon: 'headphones',
+                        iconType: 'lucide',
+                        iconColor: 'rivix-accent',
+                        borderColor: 'rivix-accent',
+                        shadowColor: 'rivix-accent',
+                        aosDelay: 300
+                    }) %>
+                </div>
+            </div>
+        </section>
+
+        <!-- Featured Plans Section -->
+        <section class="max-w-6xl mx-auto py-16 px-6 bg-[#020617]">
+          <div class="text-center mb-12">
+            <h2 class="text-4xl font-black tracking-tight mb-4">
+              Featured <span class="bg-gradient-to-r from-[#6366f1] to-[#8b5cf6] bg-clip-text text-transparent">Minecraft Server Plans</span>
+            </h2>
+
+            <p class="text-slate-400 mb-6">
+    Premium Minecraft server hosting for Java & Bedrock.
+    No overselling. NVMe storage. DDoS protection.
+  </p>
+          </div>
+
+          <!-- Monthly/Yearly Toggle -->
+          <div class="flex items-center justify-center gap-4 mb-12">
+            <span class="text-gray-400 font-medium" id="toggle-label-monthly">Monthly</span>
+            <label for="featured-pricing-toggle" class="relative inline-flex items-center cursor-pointer">
+              <input type="checkbox" id="featured-pricing-toggle" class="sr-only peer">
+              <div class="w-14 h-8 bg-gray-700 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-[#6366f1]/50 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[4px] after:left-[4px] after:bg-white after:border-gray-700 after:border after:rounded-full after:h-6 after:w-6 after:transition-all peer-checked:bg-gradient-to-r peer-checked:from-[#6366f1] peer-checked:to-[#8b5cf6]"></div>
+            </label>
+            <span class="text-gray-400 font-medium" id="toggle-label-yearly">Yearly</span>
+          </div>
+
+  <!-- JAVA PLANS -->
+          <h3 class="text-2xl font-bold tracking-tight mb-8 text-center">Minecraft Java — Featured Plans</h3>
+
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-14">
+            <% featuredJavaPlans.forEach((plan, index) => { 
+              const isDirt = plan.name === 'Dirt Block';
+              const isNetherite = plan.name === 'Netherite Block';
+              const isRecommended = plan.popular;
+            %>
+              <div class="relative bg-slate-900/50 backdrop-blur-md border border-white/10 rounded-xl p-6 <%= isRecommended ? 'ring-2 ring-[#6366f1] scale-105 md:scale-110' : '' %> <%= isDirt ? '' : isNetherite ? 'border-yellow-500/30' : '' %> transition-all hover:border-white/20 hover:shadow-xl hover:shadow-[#6366f1]/10">
+                <% if (isRecommended) { %>
+                  <div class="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-gradient-to-r from-[#6366f1] to-[#8b5cf6] text-white text-xs font-bold px-4 py-1 rounded-full">RECOMMENDED</div>
+        <% } %>
+
+                <h4 class="text-xl font-semibold mb-1 <%= isNetherite ? 'text-yellow-400' : 'text-white' %>"><%= plan.name %></h4>
+                <div class="<%= isNetherite ? 'text-yellow-400' : 'text-[#6366f1]' %> font-bold mb-2"><%= plan.memory %></div>
+                <div class="text-3xl font-bold mb-4 <%= isNetherite ? 'text-yellow-400' : 'text-white' %>">
+                  $<span class="featured-price-monthly"><%= plan.priceMonthly.toFixed(2) %></span>
+                  <span class="featured-price-yearly hidden"><%= plan.priceYearly.toFixed(2) %></span>
+                  <span class="featured-price-period">/mo</span>
+                </div>
+
+        <ul class="text-sm text-slate-400 mb-6 space-y-1">
+                  <li>AMD Ryzen 7 CPU</li>
+          <li>NVMe SSD storage</li>
+          <li>DDoS protection</li>
+          <li>Pterodactyl control panel</li>
+        </ul>
+
+        <a href="<%= plan.productUrl %>"
+           target="_blank"
+           rel="noopener noreferrer"
+                   class="block bg-gradient-to-r from-[#6366f1] to-[#8b5cf6] hover:from-[#4f46e5] hover:to-[#7c3aed] text-white font-semibold py-2.5 rounded-lg transition-all text-center shadow-lg shadow-[#6366f1]/20 hover:shadow-xl hover:shadow-[#6366f1]/30">
+          Order Now
+        </a>
+      </div>
+    <% }) %>
+  </div>
+
+  <!-- BEDROCK PLANS -->
+          <h3 class="text-2xl font-bold tracking-tight mb-8 text-center mt-16">Minecraft Bedrock — Featured Plans</h3>
+
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <% featuredBedrockPlans.forEach((plan, index) => { 
+              const isBasic = plan.memory === '2GB';
+              const isElite = plan.memory === '32GB';
+              const isRecommended = plan.popular;
+            %>
+              <div class="relative bg-slate-900/50 backdrop-blur-md border border-white/10 rounded-xl p-6 <%= isRecommended ? 'ring-2 ring-[#6366f1] scale-105 md:scale-110' : '' %> <%= isBasic ? '' : isElite ? 'border-yellow-500/30' : '' %> transition-all hover:border-white/20 hover:shadow-xl hover:shadow-[#6366f1]/10">
+                <% if (isRecommended) { %>
+                  <div class="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-gradient-to-r from-[#6366f1] to-[#8b5cf6] text-white text-xs font-bold px-4 py-1 rounded-full">RECOMMENDED</div>
+        <% } %>
+
+                <h4 class="text-xl font-semibold mb-1 <%= isElite ? 'text-yellow-400' : 'text-white' %>"><%= plan.name %></h4>
+                <div class="<%= isElite ? 'text-yellow-400' : 'text-[#6366f1]' %> font-bold mb-2"><%= plan.memory %></div>
+                <div class="text-3xl font-bold mb-4 <%= isElite ? 'text-yellow-400' : 'text-white' %>">
+                  $<span class="featured-price-monthly"><%= plan.priceMonthly.toFixed(2) %></span>
+                  <span class="featured-price-yearly hidden"><%= plan.priceYearly.toFixed(2) %></span>
+                  <span class="featured-price-period">/mo</span>
+                </div>
+
+        <ul class="text-sm text-slate-400 mb-6 space-y-1">
+                  <li>AMD Ryzen 7 CPU</li>
+          <li>NVMe SSD storage</li>
+          <li>DDoS protection</li>
+          <li>Cross-platform support</li>
+        </ul>
+
+        <a href="<%= plan.productUrl %>"
+           target="_blank"
+           rel="noopener noreferrer"
+                   class="block bg-gradient-to-r from-[#6366f1] to-[#8b5cf6] hover:from-[#4f46e5] hover:to-[#7c3aed] text-white font-semibold py-2.5 rounded-lg transition-all text-center shadow-lg shadow-[#6366f1]/20 hover:shadow-xl hover:shadow-[#6366f1]/30">
+          Order Now
+        </a>
+      </div>
+    <% }) %>
+  </div>
+</section>
+
+        <!-- Built by a Minecrafter Section -->
+        <section class="py-16 bg-[#020617] border-b border-slate-900">
+          <div class="max-w-6xl mx-auto px-6">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+              <div class="order-2 lg:order-1">
+                <img 
+                  src="/images/random (4).png" 
+                  alt="Rivix Servers Developer Support" 
+                  class="w-full h-auto rounded-xl shadow-2xl border border-slate-700/50"
+                  width="800"
+                  height="600"
+                  loading="lazy"
+                >
+              </div>
+              <div class="order-1 lg:order-2">
+                <div class="bg-slate-900/60 backdrop-blur-md border border-white/10 rounded-xl p-8 sm:p-10 shadow-xl">
+                  <div class="flex flex-col items-start gap-6">
+                    <div class="flex-shrink-0">
+                      <div class="w-16 h-16 bg-gradient-to-r from-cyan-400 to-indigo-400 rounded-full flex items-center justify-center">
+                        <i class="fas fa-check-circle text-white text-2xl"></i>
+                      </div>
+                    </div>
+                    <div class="flex-1">
+                      <h2 class="text-2xl sm:text-3xl font-black tracking-tight mb-4 text-white">
+                        Support that <span class="bg-gradient-to-r from-cyan-400 to-indigo-400 bg-clip-text text-transparent">plays the game</span>
+                      </h2>
+                      <p class="text-lg text-slate-300 leading-relaxed mb-4">
+                        Rivix is a one-man operation. When you open a ticket, you talk to the developer who built the infrastructure, not a support agent reading a script.
+                      </p>
+                      <div class="inline-flex items-center gap-2 px-4 py-2 bg-cyan-400/10 border border-cyan-400/30 rounded-lg">
+                        <i class="fas fa-certificate text-cyan-400"></i>
+                        <span class="text-white font-semibold text-sm">Verified Dev</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Support Center CTA Section -->
+        <section class="py-20 bg-gradient-to-br from-slate-900 via-[#020617] to-slate-900 border-b border-slate-900 relative overflow-hidden">
+          <!-- Background decoration -->
+          <div class="absolute inset-0 opacity-10">
+            <div class="absolute top-0 left-1/4 w-96 h-96 bg-[#6366f1] rounded-full blur-3xl"></div>
+            <div class="absolute bottom-0 right-1/4 w-96 h-96 bg-[#8b5cf6] rounded-full blur-3xl"></div>
+          </div>
+          
+          <div class="relative z-10 max-w-6xl mx-auto px-6">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center mb-8">
+              <div class="order-2 lg:order-1">
+                <img 
+                  src="/images/random (5).png" 
+                  alt="Rivix Servers Support Center" 
+                  class="w-full h-auto rounded-2xl shadow-2xl border border-slate-700/50"
+                  width="800"
+                  height="600"
+                  loading="lazy"
+                >
+              </div>
+              <div class="order-1 lg:order-2">
+                <div class="bg-gradient-to-br from-slate-900/90 to-slate-800/90 backdrop-blur-md border-2 border-[#6366f1]/30 rounded-2xl p-8 sm:p-12 shadow-2xl">
+                  <div class="text-center mb-8">
+                    <div class="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-[#6366f1] to-[#8b5cf6] rounded-2xl mb-6 shadow-xl">
+                      <i class="fas fa-headset text-white text-4xl"></i>
+                    </div>
+                    <h2 class="text-4xl sm:text-5xl font-black tracking-tight mb-4 text-white">
+                      Need <span class="bg-gradient-to-r from-[#6366f1] to-[#8b5cf6] bg-clip-text text-transparent">Help?</span>
+                    </h2>
+                    <p class="text-xl text-slate-300 mb-8 max-w-2xl mx-auto">
+                      Visit our Support Center for instant answers, guides, tutorials, and expert assistance. We're here 24/7.
+                    </p>
+                  </div>
+                  
+                  <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+                    <div class="bg-slate-800/50 rounded-xl p-6 border border-slate-700/50">
+                      <div class="flex items-center gap-3 mb-3">
+                        <i class="fas fa-book text-[#6366f1] text-2xl"></i>
+                        <h3 class="text-lg font-bold text-white">Knowledge Base</h3>
+                      </div>
+                      <p class="text-slate-400 text-sm">FAQs, guides, and tutorials</p>
+                    </div>
+                    <div class="bg-slate-800/50 rounded-xl p-6 border border-slate-700/50">
+                      <div class="flex items-center gap-3 mb-3">
+                        <i class="fas fa-ticket-alt text-[#8b5cf6] text-2xl"></i>
+                        <h3 class="text-lg font-bold text-white">Support Tickets</h3>
+                      </div>
+                      <p class="text-slate-400 text-sm">Get help from our team</p>
+                    </div>
+                    <div class="bg-slate-800/50 rounded-xl p-6 border border-slate-700/50">
+                      <div class="flex items-center gap-3 mb-3">
+                        <i class="fas fa-comments text-[#6366f1] text-2xl"></i>
+                        <h3 class="text-lg font-bold text-white">Live Chat</h3>
+                      </div>
+                      <p class="text-slate-400 text-sm">Quick answers in real-time</p>
+                    </div>
+                  </div>
+                  
+                  <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+                    <a href="/support" class="group relative inline-flex items-center justify-center px-8 py-4 text-lg font-bold text-white bg-gradient-to-r from-[#6366f1] to-[#8b5cf6] rounded-xl shadow-xl hover:shadow-2xl hover:scale-105 transition-all duration-300 overflow-hidden">
+                      <span class="relative z-10 flex items-center gap-2">
+                        <i class="fas fa-arrow-right"></i>
+                        Visit Support Center
+                      </span>
+                      <div class="absolute inset-0 bg-gradient-to-r from-[#4f46e5] to-[#7c3aed] opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                    </a>
+                    <a href="<%= company.ticketUrl %>" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center px-8 py-4 text-lg font-bold text-white bg-slate-800/80 border-2 border-slate-700 rounded-xl hover:border-[#6366f1] hover:bg-slate-800 transition-all duration-300">
+                      <i class="fas fa-ticket-alt mr-2"></i>
+                      Create Ticket
+                      <i class="fas fa-external-link-alt ml-2 text-sm"></i>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+    </main>
+
+    <%- include('partials/footer') %>
+
+    <script src="/js/main.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({ duration: 800, once: true });
+        
+        // Initialize Lucide icons
+        if (typeof lucide !== 'undefined') {
+            lucide.createIcons();
+        }
+
+        // Featured Plans Pricing Toggle
+        (function() {
+            var featuredToggle = document.getElementById('featured-pricing-toggle');
+            if (!featuredToggle) return;
+
+            function toggleFeaturedPricing(isYearly) {
+                var monthlyEls = document.querySelectorAll('.featured-price-monthly');
+                var yearlyEls = document.querySelectorAll('.featured-price-yearly');
+                var periodLabels = document.querySelectorAll('.featured-price-period');
+                var monthlyLabel = document.getElementById('toggle-label-monthly');
+                var yearlyLabel = document.getElementById('toggle-label-yearly');
+
+                monthlyEls.forEach(function(el) {
+                    if (isYearly) {
+                        el.classList.add('hidden');
+                    } else {
+                        el.classList.remove('hidden');
+                    }
+                });
+
+                yearlyEls.forEach(function(el) {
+                    if (isYearly) {
+                        el.classList.remove('hidden');
+                    } else {
+                        el.classList.add('hidden');
+                    }
+                });
+
+                periodLabels.forEach(function(el) {
+                    el.textContent = isYearly ? '/yr' : '/mo';
+                });
+
+                // Update label colors for better UX
+                if (monthlyLabel && yearlyLabel) {
+                    if (isYearly) {
+                        monthlyLabel.classList.remove('text-[#6366f1]', 'font-semibold');
+                        monthlyLabel.classList.add('text-gray-400', 'font-medium');
+                        yearlyLabel.classList.remove('text-gray-400', 'font-medium');
+                        yearlyLabel.classList.add('text-[#6366f1]', 'font-semibold');
+                    } else {
+                        yearlyLabel.classList.remove('text-[#6366f1]', 'font-semibold');
+                        yearlyLabel.classList.add('text-gray-400', 'font-medium');
+                        monthlyLabel.classList.remove('text-gray-400', 'font-medium');
+                        monthlyLabel.classList.add('text-[#6366f1]', 'font-semibold');
+                    }
+                }
+            }
+
+            // Initialize with monthly (set active label)
+            var monthlyLabel = document.getElementById('toggle-label-monthly');
+            if (monthlyLabel) {
+                monthlyLabel.classList.add('text-[#6366f1]', 'font-semibold');
+                monthlyLabel.classList.remove('text-gray-400', 'font-medium');
+            }
+            toggleFeaturedPricing(false);
+
+            // Wire up toggle
+            featuredToggle.addEventListener('change', function(e) {
+                toggleFeaturedPricing(e.target.checked);
+            });
+        })();
+    </script>
+</body>
+</html>

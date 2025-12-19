@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Server Error - Rivix Servers</title>
+    <meta name="description" content="An error occurred while processing your request.">
+    <link rel="icon" type="image/x-icon" href="<%= images.logo %>">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        .bg-dark-bg { background-color: #0F172A; }
+        .bg-dark-card { background-color: #1E293B; }
+        .text-rivix-orange { color: #FF6B00; }
+        .text-rivix-green { color: #22C55E; }
+        .text-rivix-blue { color: #2563EB; }
+        
+        body { background-color: #0F172A; color: #E2E8F0; font-family: 'Inter', sans-serif; }
+    </style>
+</head>
+<body class="bg-dark-bg font-sans antialiased min-h-screen flex flex-col">
+    
+    <%- include('partials/header') %>
+
+    <main class="flex-1 flex items-center justify-center py-20 px-4">
+        <div class="text-center max-w-2xl mx-auto">
+            <div class="mb-8">
+                <div class="w-24 h-24 mx-auto mb-6 bg-red-500/20 rounded-full flex items-center justify-center">
+                    <i class="fas fa-exclamation-triangle text-red-500 text-5xl"></i>
+                </div>
+                <h1 class="text-6xl md:text-7xl font-black text-red-500 mb-4 leading-none">
+                    500
+                </h1>
+            </div>
+            
+            <h2 class="text-4xl md:text-5xl font-black text-white mb-6">
+                Server Error
+            </h2>
+            
+            <p class="text-xl text-gray-400 mb-8 max-w-xl mx-auto">
+                We're sorry, but something went wrong on our end. Our team has been notified and is working to fix the issue.
+            </p>
+            
+            <% if (typeof error !== 'undefined' && error && typeof NODE_ENV !== 'undefined' && NODE_ENV === 'development') { %>
+            <div class="bg-red-500/10 border border-red-500/30 rounded-lg p-4 mb-8 text-left">
+                <p class="text-red-400 text-sm font-mono break-all"><%= error %></p>
+            </div>
+            <% } %>
+            
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+                <a href="/" class="inline-flex items-center gap-3 px-8 py-4 bg-rivix-orange text-white rounded-xl font-bold text-lg hover:bg-orange-600 transition-all duration-300 shadow-xl hover:shadow-2xl hover:scale-105 no-underline">
+                    <i class="fas fa-home"></i>
+                    Back to Home
+                </a>
+                <a href="<%= company.ticketUrl %>" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-3 px-8 py-4 bg-rivix-orange/80 text-white rounded-xl font-bold text-lg hover:bg-orange-600 transition-all duration-300 shadow-xl hover:shadow-2xl hover:scale-105 no-underline">
+                    <i class="fas fa-ticket-alt"></i>
+                    Submit Support Ticket
+                </a>
+                <a href="/support" class="inline-flex items-center gap-3 px-8 py-4 bg-dark-card text-white rounded-xl font-bold text-lg border border-gray-700 hover:border-rivix-orange transition-all duration-300 no-underline">
+                    <i class="fas fa-headset"></i>
+                    Get Support
+                </a>
+            </div>
+            
+            <div class="mt-16 pt-8 border-t border-gray-800">
+                <p class="text-gray-500 text-sm mb-4">What can you do?</p>
+                <div class="flex flex-wrap items-center justify-center gap-4 text-sm mb-4">
+                    <span class="text-gray-400"><i class="fas fa-check-circle text-rivix-green mr-2"></i>Try refreshing the page</span>
+                    <span class="text-gray-400"><i class="fas fa-check-circle text-rivix-green mr-2"></i>Check your internet connection</span>
+                    <span class="text-gray-400"><i class="fas fa-check-circle text-rivix-green mr-2"></i>Contact support if the problem persists</span>
+                </div>
+                <a href="<%= company.ticketUrl %>" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-rivix-orange hover:text-orange-400 transition-colors font-semibold">
+                    <i class="fas fa-ticket-alt"></i>
+                    Open Support Tickets Portal
+                </a>
+            </div>
+        </div>
+    </main>
+
+    <%- include('partials/footer') %>
+    
+</body>
+</html>
+

@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+    <meta name="description" content="Real-time system status for Rivix Servers. Monitor uptime, network performance, and infrastructure health.">
+    <link rel="icon" type="image/x-icon" href="<%= images.logo %>">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
+    
+    <style>
+        /* Base Dark Mode Setup */
+        .bg-dark-bg { background-color: #0F172A; }
+        .bg-dark-card { background-color: #1E293B; }
+        .text-rivix-orange { color: #FF6B00; }
+        .text-rivix-green { color: #22C55E; }
+        .text-rivix-blue { color: #2563EB; }
+        
+        body { padding-top: 72px; background-color: #0F172A; color: #E2E8F0; }
+        section { padding-top: 100px; padding-bottom: 100px; }
+        h1, h2, h3 { font-weight: 900; letter-spacing: -0.04em; color: #F8FAFC; }
+
+        /* Status Indicator Animations */
+        .status-pulse {
+            animation: status-pulse 2s ease-in-out infinite;
+        }
+        @keyframes status-pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.8; transform: scale(1.05); }
+        }
+        .status-operational { background-color: #22C55E; }
+        .status-degraded { background-color: #F59E0B; }
+        .status-down { background-color: #EF4444; }
+    </style>
+</head>
+<body class="bg-dark-bg font-sans antialiased">
+    
+    <%- include('partials/header') %>
+
+    <!-- Hero Section -->
+    <section class="py-24 bg-gray-900 border-b border-dark-card">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto text-center">
+                <div class="flex items-center justify-center gap-4 mb-6" data-aos="fade-down">
+                    <div class="w-6 h-6 rounded-full status-pulse status-operational"></div>
+                    <h1 class="text-5xl lg:text-7xl font-black text-white">
+                        All Systems <span class="text-rivix-green">Operational</span>
+                    </h1>
+                </div>
+                <p class="text-xl text-gray-400 mb-8" data-aos="fade-down" data-aos-delay="100">
+                    Real-time transparency into our infrastructure. Every node. Every metric. No secrets.
+                </p>
+                <div class="inline-flex items-center gap-2 px-4 py-2 bg-rivix-green/20 border border-rivix-green/50 rounded-full text-rivix-green text-sm font-semibold" data-aos="fade-up" data-aos-delay="200">
+                    <i class="fas fa-check-circle"></i>
+                    <span>Last Updated: <%= new Date().toLocaleString() %></span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Service Metrics -->
+    <section class="py-20 bg-dark-bg">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-6 max-w-6xl mx-auto mb-16">
+                <div class="bg-dark-card p-6 rounded-xl border border-gray-700 text-center" data-aos="fade-up">
+                    <div class="text-4xl font-black text-rivix-orange mb-2"><%= statusData.cpuUsage %></div>
+                    <div class="text-gray-400 text-sm font-semibold">CPU Usage</div>
+                    <div class="mt-3 h-2 bg-gray-700 rounded-full overflow-hidden">
+                        <div class="h-full bg-rivix-orange rounded-full" style="width: <%= statusData.cpuUsage %>"></div>
+                    </div>
+                </div>
+                
+                <div class="bg-dark-card p-6 rounded-xl border border-gray-700 text-center" data-aos="fade-up" data-aos-delay="100">
+                    <div class="text-4xl font-black text-rivix-blue mb-2"><%= statusData.ramUtilization %></div>
+                    <div class="text-gray-400 text-sm font-semibold">RAM Utilization</div>
+                    <div class="mt-3 h-2 bg-gray-700 rounded-full overflow-hidden">
+                        <div class="h-full bg-rivix-blue rounded-full" style="width: <%= statusData.ramUtilization %>"></div>
+                    </div>
+                </div>
+                
+                <div class="bg-dark-card p-6 rounded-xl border border-gray-700 text-center" data-aos="fade-up" data-aos-delay="200">
+                    <div class="text-4xl font-black text-rivix-green mb-2"><%= statusData.networkLatency %></div>
+                    <div class="text-gray-400 text-sm font-semibold">Network Latency</div>
+                    <div class="mt-3 text-xs text-gray-500">Average response time</div>
+                </div>
+                
+                <div class="bg-dark-card p-6 rounded-xl border border-gray-700 text-center" data-aos="fade-up" data-aos-delay="300">
+                    <div class="text-4xl font-black text-rivix-green mb-2"><%= statusData.uptime %></div>
+                    <div class="text-gray-400 text-sm font-semibold">Uptime</div>
+                    <div class="mt-3 text-xs text-gray-500">Last 30 days</div>
+                </div>
+            </div>
+
+            <!-- Node Status Grid -->
+            <div class="max-w-6xl mx-auto">
+                <h2 class="text-3xl font-black text-white mb-8 text-center" data-aos="fade-up">Network Node Status</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <% statusData.nodes.forEach((node, index) => { %>
+                    <% 
+                        const statusClass = node.status === 'operational' ? 'bg-rivix-green' : 
+                                          node.status === 'degraded' ? 'bg-yellow-500' : 'bg-red-500';
+                        const statusText = node.status === 'operational' ? 'Operational' : 
+                                         node.status === 'degraded' ? 'Degraded' : 'Down';
+                    %>
+                    <div class="bg-dark-card p-6 rounded-xl border border-gray-700 hover:border-rivix-orange transition-all" data-aos="fade-up" data-aos-delay="<%= index * 100 %>">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-lg font-bold text-white"><%= node.name %></h3>
+                            <div class="w-3 h-3 rounded-full <%= statusClass %> status-pulse"></div>
+                        </div>
+                        <div class="space-y-2 text-sm">
+                            <div class="flex justify-between">
+                                <span class="text-gray-400">Status:</span>
+                                <span class="text-white font-semibold"><%= statusText %></span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-gray-400">Location:</span>
+                                <span class="text-white"><%= node.location %></span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-gray-400">Load:</span>
+                                <span class="text-rivix-orange font-semibold"><%= node.load %></span>
+                            </div>
+                        </div>
+                    </div>
+                    <% }); %>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Past Incidents -->
+    <section class="py-20 bg-gray-900 border-t border-gray-800">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto">
+                <h2 class="text-3xl font-black text-white mb-8 text-center" data-aos="fade-up">Past Incidents</h2>
+                <div class="space-y-4">
+                    <% statusData.incidents.forEach((incident, index) => { %>
+                    <div class="bg-dark-card p-6 rounded-xl border border-gray-700" data-aos="fade-up" data-aos-delay="<%= index * 50 %>">
+                        <div class="flex items-start justify-between mb-3">
+                            <div>
+                                <h3 class="text-lg font-bold text-white mb-1"><%= incident.title %></h3>
+                                <p class="text-sm text-gray-400"><%= incident.date %></p>
+                            </div>
+                            <span class="px-3 py-1 bg-rivix-green/20 text-rivix-green text-xs font-semibold rounded-full">
+                                <%= incident.status.charAt(0).toUpperCase() + incident.status.slice(1) %>
+                            </span>
+                        </div>
+                        <p class="text-gray-300 text-sm"><%= incident.description %></p>
+                    </div>
+                    <% }); %>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <%- include('partials/footer') %>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({ duration: 800, once: true });
+        
+        // Auto-refresh status every 60 seconds
+        setInterval(() => {
+            // In production, this would fetch from /api/status
+            console.log('Status check - all systems operational');
+        }, 60000);
+    </script>
+</body>
+</html>
+

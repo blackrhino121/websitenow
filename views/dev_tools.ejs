@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+    <meta name="description" content="Integrated administrator tools for Minecraft server management. Simplify complex tasks directly from your Rivix control panel.">
+    <link rel="icon" type="image/x-icon" href="<%= images.logo %>">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
+    
+    <style>
+        /* Base Dark Mode Setup */
+        .bg-dark-bg { background-color: #0F172A; }
+        .bg-dark-card { background-color: #1E293B; }
+        .text-rivix-orange { color: #FF6B00; }
+        .text-rivix-green { color: #22C55E; }
+        .text-rivix-blue { color: #2563EB; }
+        .text-rivix-cyan { color: #38BDF8; }
+        .text-rivix-purple { color: #A855F7; }
+        .text-rivix-pink { color: #EC4899; }
+        .border-rivix-cyan { border-color: #38BDF8; }
+        .border-rivix-purple { border-color: #A855F7; }
+        .border-rivix-pink { border-color: #EC4899; }
+        .bg-rivix-cyan\/20 { background-color: rgba(56, 189, 248, 0.2); }
+        .bg-rivix-purple\/20 { background-color: rgba(168, 85, 247, 0.2); }
+        .bg-rivix-pink\/20 { background-color: rgba(236, 72, 153, 0.2); }
+        
+        body { padding-top: 72px; background-color: #0F172A; color: #E2E8F0; }
+        section { padding-top: 100px; padding-bottom: 100px; }
+        h1, h2, h3 { font-weight: 900; letter-spacing: -0.04em; color: #F8FAFC; }
+
+        .tool-card {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .tool-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(255, 107, 0, 0.2);
+        }
+    </style>
+</head>
+<body class="bg-dark-bg font-sans antialiased">
+    
+    <%- include('partials/header') %>
+
+    <section class="py-24 bg-gray-900 border-b border-dark-card">
+        <div class="container mx-auto px-4 text-center">
+            <h1 class="text-5xl lg:text-7xl font-black mb-6 text-white" data-aos="fade-down">
+                Integrated <span class="text-rivix-orange">Administrator</span> Tools
+            </h1>
+            <p class="text-xl text-gray-400 max-w-3xl mx-auto" data-aos="fade-down" data-aos-delay="100">
+                Simplify complex Minecraft tasks directly from your Rivix control panel. No external tools needed.
+            </p>
+        </div>
+    </section>
+
+    <section class="py-20 bg-dark-bg">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
+                
+                <!-- MOTD Editor -->
+                <div class="tool-card bg-dark-card p-8 rounded-2xl border border-gray-700 hover:border-rivix-orange" data-aos="fade-up">
+                    <div class="w-16 h-16 mb-6 bg-rivix-orange/20 rounded-xl flex items-center justify-center">
+                        <i class="fas fa-edit text-rivix-orange text-3xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-black text-white mb-3">MOTD Editor</h3>
+                    <p class="text-gray-400 mb-6">
+                        Customize your server's Message of the Day with color codes, formatting, and emojis. Real-time preview included.
+                    </p>
+                    <a href="#" class="inline-flex items-center gap-2 text-rivix-orange font-bold hover:underline">
+                        Open Tool <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+
+                <!-- Enchantment Calculator -->
+                <div class="tool-card bg-dark-card p-8 rounded-2xl border border-gray-700 hover:border-rivix-blue" data-aos="fade-up" data-aos-delay="100">
+                    <div class="w-16 h-16 mb-6 bg-rivix-blue/20 rounded-xl flex items-center justify-center">
+                        <i class="fas fa-magic text-rivix-blue text-3xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-black text-white mb-3">Enchantment Calculator</h3>
+                    <p class="text-gray-400 mb-6">
+                        Calculate optimal enchantment combinations, experience costs, and level requirements for any item.
+                    </p>
+                    <a href="#" class="inline-flex items-center gap-2 text-rivix-blue font-bold hover:underline">
+                        Open Tool <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+
+                <!-- Coordinate Generator -->
+                <div class="tool-card bg-dark-card p-8 rounded-2xl border border-gray-700 hover:border-rivix-green" data-aos="fade-up" data-aos-delay="200">
+                    <div class="w-16 h-16 mb-6 bg-rivix-green/20 rounded-xl flex items-center justify-center">
+                        <i class="fas fa-map-marker-alt text-rivix-green text-3xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-black text-white mb-3">Coordinate Generator</h3>
+                    <p class="text-gray-400 mb-6">
+                        Generate random coordinates, calculate distances between points, and create waypoint markers for your world.
+                    </p>
+                    <a href="#" class="inline-flex items-center gap-2 text-rivix-green font-bold hover:underline">
+                        Open Tool <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+
+                <!-- Recipe Crafter Generator -->
+                <div class="tool-card bg-dark-card p-8 rounded-2xl border border-gray-700 hover:border-rivix-purple" data-aos="fade-up" data-aos-delay="300">
+                    <div class="w-16 h-16 mb-6 bg-rivix-purple/20 rounded-xl flex items-center justify-center">
+                        <i class="fas fa-cube text-rivix-purple text-3xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-black text-white mb-3">Recipe Crafter Generator</h3>
+                    <p class="text-gray-400 mb-6">
+                        Create custom crafting recipes, test item combinations, and generate recipe JSON for plugins and datapacks.
+                    </p>
+                    <a href="#" class="inline-flex items-center gap-2 text-rivix-purple font-bold hover:underline">
+                        Open Tool <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+
+                <!-- World Seed Analyzer -->
+                <div class="tool-card bg-dark-card p-8 rounded-2xl border border-gray-700 hover:border-rivix-pink" data-aos="fade-up" data-aos-delay="400">
+                    <div class="w-16 h-16 mb-6 bg-rivix-pink/20 rounded-xl flex items-center justify-center">
+                        <i class="fas fa-seedling text-rivix-pink text-3xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-black text-white mb-3">World Seed Analyzer</h3>
+                    <p class="text-gray-400 mb-6">
+                        Analyze world seeds to find biomes, structures, and valuable resources before generating your world.
+                    </p>
+                    <a href="#" class="inline-flex items-center gap-2 text-rivix-pink font-bold hover:underline">
+                        Open Tool <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+
+                <!-- Command Generator -->
+                <div class="tool-card bg-dark-card p-8 rounded-2xl border border-gray-700 hover:border-rivix-cyan" data-aos="fade-up" data-aos-delay="500">
+                    <div class="w-16 h-16 mb-6 bg-rivix-cyan/20 rounded-xl flex items-center justify-center">
+                        <i class="fas fa-terminal text-rivix-cyan text-3xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-black text-white mb-3">Command Generator</h3>
+                    <p class="text-gray-400 mb-6">
+                        Build complex Minecraft commands with our visual command builder. Supports all versions and command syntax.
+                    </p>
+                    <a href="#" class="inline-flex items-center gap-2 text-rivix-cyan font-bold hover:underline">
+                        Open Tool <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Coming Soon Section -->
+    <section class="py-20 bg-gray-900 border-t border-gray-800">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto text-center">
+                <h2 class="text-4xl font-black text-white mb-6" data-aos="fade-up">More Tools Coming Soon</h2>
+                <p class="text-xl text-gray-400 mb-8" data-aos="fade-up" data-aos-delay="100">
+                    We're constantly adding new tools based on community feedback. Have a tool request?
+                </p>
+                <a href="/contact" class="inline-flex items-center gap-2 px-8 py-4 bg-rivix-orange text-white rounded-xl font-bold text-lg hover:bg-orange-600 transition-all duration-300 shadow-xl" data-aos="fade-up" data-aos-delay="200">
+                    <i class="fas fa-lightbulb"></i>
+                    Suggest a Tool
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <%- include('partials/footer') %>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script nonce="<%= typeof nonce !== 'undefined' ? nonce : '' %>">
+        AOS.init({ duration: 800, once: true });
+    </script>
+</body>
+</html>
+
